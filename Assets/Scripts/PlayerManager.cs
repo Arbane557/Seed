@@ -59,10 +59,8 @@ public class PlayerManager : MonoBehaviour
             GameObject player2 = playerObj[1];
             ThirdPersonController tpc = player2.GetComponentInChildren<ThirdPersonController>();
             tpc.isPLayer2 = true;
-            player2.GetComponentInChildren<PlayerInput>().camera = player2.transform.GetChild(2).GetComponent<Camera>();
-            player2.transform.GetChild(2).gameObject.SetActive(true);
-            Destroy(player2.transform.GetChild(1).gameObject);
-            player2.transform.GetChild(2).SetParent(player2.transform.GetChild(0));
+            
+            player2.GetComponentInChildren<CinemachineFreeLook>().m_Orbits[1].m_Height = 25;
         }
     }
 
