@@ -5,7 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField]
     private List<PlayerInput> players = new List<PlayerInput>();
+    [SerializeField]
+    private List<GameObject> playerObj = new List<GameObject>();
     [SerializeField]
     private List<Transform> startingPoints;
     [SerializeField]
@@ -34,6 +37,7 @@ public class PlayerManager : MonoBehaviour
 
         //need to use the parent due to the structure of the prefab
         Transform playerParent = player.transform.parent;
+        playerObj.Add(playerParent.gameObject);
         //playerParent.position = startingPoints[players.Count - 1].position;
 
         //convert layer mask (bit) to an integer 
@@ -47,4 +51,19 @@ public class PlayerManager : MonoBehaviour
         playerParent.GetComponentInChildren<InputHandler>().horizontal = player.actions.FindAction("Look");
 
     }
+    private void Update()
+    {
+        //setup for player 2 camera
+        if (playerObj.Count > 1)
+        {
+            GameObject player2 = playerObj[1];
+            ThirdPersonController tpc = player2.GetComponentInChildren<ThirdPersonController>();
+            tpc.isPLayer2 = true;
+            player2.GetComponentInChildren<PlayerInput>().camera = player2.transform.GetChild(2).GetComponent<Camera>();
+            player2.transform.GetChild(2).gameObject.SetActive(true);
+            Destroy(player2.transform.GetChild(1).gameObject);
+            player2.transform.GetChild(2).SetParent(player2.transform.GetChild(0));
+        }
+    }
+
 }
