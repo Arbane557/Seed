@@ -453,6 +453,8 @@ MonoBehaviour:
   DirectionalLight: {fileID: 705507994}
   Preset: {fileID: 11400000, guid: 5b132528c097a0144bc337b5fbb827ef, type: 2}
   TimeOfDay: 0
+  isNight: 1
+  isDay: 0
 --- !u!4 &584201904
 Transform:
   m_ObjectHideFlags: 0

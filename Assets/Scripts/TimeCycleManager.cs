@@ -4,27 +4,44 @@ using UnityEngine;
 public class LightingManager : MonoBehaviour
 {
     //Scene References
-    [SerializeField] private Light DirectionalLight;
-    [SerializeField] private LightingPreset Preset;
+    [SerializeField] 
+    private Light DirectionalLight;
+    [SerializeField] 
+    private LightingPreset Preset;
     //Variables
-    [SerializeField, Range(0, 24)] private float TimeOfDay;
-
-
+    [SerializeField, Range(0, 180)] 
+    private float TimeOfDay;
+    [SerializeField]
+    private bool isNight;
+    [SerializeField]
+    private bool buffedSpawnRate;
+    [SerializeField]
+    private bool isDay;
     private void Update()
     {
         if (Preset == null)
             return;
 
+        if(TimeOfDay > 40 || TimeOfDay < 140)
+        {
+            isDay = true;
+            isNight = false;
+        }
+        if(TimeOfDay < 40 || TimeOfDay > 140)
+        {
+            isDay = false;
+            isNight = true;
+        }
         if (Application.isPlaying)
         {
             //(Replace with a reference to the game time)
             TimeOfDay += Time.deltaTime;
-            TimeOfDay %= 24; //Modulus to ensure always between 0-24
-            UpdateLighting(TimeOfDay / 24f);
+            TimeOfDay %= 180; //Modulus to ensure always between 0-24
+            UpdateLighting(TimeOfDay / 180f);
         }
         else
         {
-            UpdateLighting(TimeOfDay / 24f);
+            UpdateLighting(TimeOfDay / 180f);
         }
     }
 
