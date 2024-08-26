@@ -358,6 +358,7 @@ MonoBehaviour:
   isPLayer2: 0
   isOnField: 0
   isOnSource: 0
+  isInteract: 0
   movementForce: 1
   maxSpeed: 5
   radius: 1.8
@@ -366,6 +367,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   playerCamera: {fileID: 4150472824136187226}
+  seedObj: {fileID: 2239011280999109397, guid: 8a9da6a39c0209349981cd87af453389, type: 3}
 --- !u!114 &1051875424637292615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -471,7 +473,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2515555342269520448}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018141478, y: 0.000000046563407, z: -0.00000006618094, w: 0.9998355}
+  m_LocalRotation: {x: -0.018141478, y: 0.000000013229716, z: -0.000000018803497, w: 0.9998355}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -583,7 +585,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4416498968127147703}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.000000026251195, z: -0.000000038787633, w: 1}
+  m_LocalRotation: {x: -0, y: -0.000000026251197, z: 0.000000038787633, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -793,7 +795,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7091220747332887305}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.46877903, y: 0.00000002906088, z: -0.000000015422724, w: 0.8833155}
+  m_LocalRotation: {x: 0.46877903, y: -0.00000002906088, z: 0.000000015422724, w: 0.8833155}
   m_LocalPosition: {x: 0, y: 8, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1056,7 +1058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8657023910194362174}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.01818949, y: 0.000000023845402, z: -0.00000003665196, w: 0.9998346}
+  m_LocalRotation: {x: 0.01818949, y: -0.000000023845253, z: 0.000000036651738, w: 0.9998346}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

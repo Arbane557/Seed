@@ -26,7 +26,7 @@ public class ThirdPersonController : MonoBehaviour
     private Rigidbody rb;
     [SerializeField]
     public float movementForce = 1f;
-
+    public float closestObjDist;
     [SerializeField]
     private float maxSpeed = 5f;
     [SerializeField]
@@ -35,11 +35,14 @@ public class ThirdPersonController : MonoBehaviour
     private float maxdist = 0f;
     [SerializeField]
     private LayerMask layermask;
-    private float currDist;
+    public float currDist;
     private Vector3 forceDirection = Vector3.zero;
 
     [SerializeField]
     private Camera playerCamera;
+    [SerializeField]
+    private GameObject seedObj;
+    [SerializeField]
     private GameObject currInteracted;
     private void Awake()
     {
@@ -52,6 +55,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         move = player.FindAction("Movement");
         interact = player.FindAction("Interact");
+        player.FindAction("Interact").Enable();
         player.Enable();
     }
 
@@ -65,14 +69,17 @@ public class ThirdPersonController : MonoBehaviour
         if (isPLayer2)
         {
             forceDirection.x = move.ReadValue<Vector2>().x * movementForce;
-            forceDirection.z = move.ReadValue<Vector2>().y * movementForce;           
+            forceDirection.z = move.ReadValue<Vector2>().y * movementForce;
+            if (isOnSource)
+            {
+                player.FindAction("Ability").performed += ability;
+            }
         }
         else
         {
             forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
             forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
 
-            currDist = maxdist;
             foreach (GameObject item in ObjNearPlayer)
             {
                 if (item.CompareTag("Interactable"))
@@ -85,33 +92,38 @@ public class ThirdPersonController : MonoBehaviour
             hit = Physics.SphereCastAll(transform.position, radius, transform.forward, maxdist, layermask, QueryTriggerInteraction.UseGlobal);
             foreach (RaycastHit item in hit)
             {
-                ObjNearPlayer.Add(item.transform.gameObject);
-                currDist = item.distance;
+                if (item.transform.gameObject.CompareTag("Interactable"))
+                {
+                    ObjNearPlayer.Add(item.transform.gameObject);
+                }
             }
 
-            if (ObjNearPlayer.Contains(GameObject.FindGameObjectWithTag("Interactable")))
-            {         
-                player.FindAction("Interact").Enable();
+            
+            player.FindAction("Interact").performed += grab;
+
+            if (ObjNearPlayer != null)
+            {
+                closestObjDist = 10f;
+                foreach (GameObject item in ObjNearPlayer)
+                {
+                    item.GetComponent<Interactable>().EnableInteract();
+                    if (!isInteract)
+                    {
+                        if (Vector3.Distance(this.transform.position, item.transform.position) < closestObjDist)
+                        {
+                            currInteracted = item.gameObject;
+                            closestObjDist = Vector3.Distance(this.transform.position, item.transform.position);
+                        }
+                    }
+                }
             }
             else
             {
-                player.FindAction("Interact").Disable();
+                currInteracted = null;
             }
-
-            player.FindAction("Interact").performed += grab;
-          
-            foreach (GameObject item in ObjNearPlayer)
-            {
-                if (item.CompareTag("Interactable"))
-                {
-
-                    item.GetComponent<Interactable>().EnableInteract();
-                    currInteracted = item.gameObject;
-                }
-            }
-            
-
         }
+
+
 
         rb.AddForce(forceDirection, ForceMode.Impulse);
         forceDirection = Vector3.zero;
@@ -148,6 +160,13 @@ public class ThirdPersonController : MonoBehaviour
             currInteracted.transform.SetParent(null);
             isInteract = false;
         }
+    }
+
+    private void ability(InputAction.CallbackContext context)
+    {
+        Debug.Log("pew");
+        GameObject spawnedSeed = Instantiate(seedObj,transform.position, Quaternion.identity);
+        spawnedSeed.transform.position = this.transform.position;
     }
 
     private void LookAt()
@@ -192,8 +211,7 @@ public class ThirdPersonController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Debug.DrawLine(transform.position, transform.position + transform.forward * currDist);
-        Gizmos.DrawWireSphere(transform.position + transform.forward * currDist, radius);
+        Gizmos.DrawWireSphere(transform.position, radius);
     }
 
    

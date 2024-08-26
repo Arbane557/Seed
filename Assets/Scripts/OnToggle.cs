@@ -13,7 +13,10 @@ public class OnToggle : MonoBehaviour
     {
         m_PlayerInputManager = FindObjectOfType<PlayerInputManager>();
     }
-
+    private void Update()
+    {
+        transform.Rotate(0, 15f * Time.deltaTime, 0);
+    }
     private void OnEnable()
     {
         m_PlayerInputManager.onPlayerJoined += ToggleThis;

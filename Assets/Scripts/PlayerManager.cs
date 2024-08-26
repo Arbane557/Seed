@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
             tpc.isPLayer2 = true;
             player2.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
             tpc.movementForce = 5f;
-            player2.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = false;
+            player2.transform.GetChild(0).GetComponent<CapsuleCollider>().isTrigger = true;
             player2.GetComponentInChildren<CinemachineFreeLook>().m_Orbits[1].m_Height = 25;
         }
     }
