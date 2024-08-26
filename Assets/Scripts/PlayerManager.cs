@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem.Users;
+using UnityEngine.XR;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -34,7 +37,7 @@ public class PlayerManager : MonoBehaviour
     public void AddPlayer(PlayerInput player)
     {
         players.Add(player);
-
+        
         //need to use the parent due to the structure of the prefab
         Transform playerParent = player.transform.parent;
         playerObj.Add(playerParent.gameObject);
@@ -59,7 +62,9 @@ public class PlayerManager : MonoBehaviour
             GameObject player2 = playerObj[1];
             ThirdPersonController tpc = player2.GetComponentInChildren<ThirdPersonController>();
             tpc.isPLayer2 = true;
-            
+            player2.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+            tpc.movementForce = 5f;
+            player2.transform.GetChild(0).GetComponent<CapsuleCollider>().enabled = false;
             player2.GetComponentInChildren<CinemachineFreeLook>().m_Orbits[1].m_Height = 25;
         }
     }

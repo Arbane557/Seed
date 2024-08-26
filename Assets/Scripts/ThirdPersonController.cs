@@ -3,27 +3,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditor.Progress;
 
 public class ThirdPersonController : MonoBehaviour
 {
+    [SerializeField]
+    private List<GameObject> ObjNearPlayer = new List<GameObject>();
+
     private InputActionAsset inputAsset;
     private InputActionMap player;
     private InputAction move;
+    private InputAction interact;
 
     public bool isPLayer1;
     public bool isPLayer2;
+    [SerializeField]
+    private bool isOnField;
+    [SerializeField]
+    private bool isOnSource;
+    public bool isInteract;
     //movement fields
     private Rigidbody rb;
     [SerializeField]
-    private float movementForce = 1f;
-    
+    public float movementForce = 1f;
+
     [SerializeField]
     private float maxSpeed = 5f;
+    [SerializeField]
+    private float radius = 3f;
+    [SerializeField]
+    private float maxdist = 0f;
+    [SerializeField]
+    private LayerMask layermask;
+    private float currDist;
     private Vector3 forceDirection = Vector3.zero;
 
     [SerializeField]
     private Camera playerCamera;
-   
+    private GameObject currInteracted;
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody>();
@@ -34,6 +51,7 @@ public class ThirdPersonController : MonoBehaviour
     private void OnEnable()
     {
         move = player.FindAction("Movement");
+        interact = player.FindAction("Interact");
         player.Enable();
     }
 
@@ -47,13 +65,52 @@ public class ThirdPersonController : MonoBehaviour
         if (isPLayer2)
         {
             forceDirection.x = move.ReadValue<Vector2>().x * movementForce;
-            forceDirection.z = move.ReadValue<Vector2>().y * movementForce;
-            
+            forceDirection.z = move.ReadValue<Vector2>().y * movementForce;           
         }
         else
         {
             forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
             forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
+
+            currDist = maxdist;
+            foreach (GameObject item in ObjNearPlayer)
+            {
+                if (item.CompareTag("Interactable"))
+                {
+                    item.GetComponent<Interactable>().EnableInteract();
+                }
+            }
+            ObjNearPlayer.Clear();
+            RaycastHit[] hit;
+            hit = Physics.SphereCastAll(transform.position, radius, transform.forward, maxdist, layermask, QueryTriggerInteraction.UseGlobal);
+            foreach (RaycastHit item in hit)
+            {
+                ObjNearPlayer.Add(item.transform.gameObject);
+                currDist = item.distance;
+            }
+
+            if (ObjNearPlayer.Contains(GameObject.FindGameObjectWithTag("Interactable")))
+            {         
+                player.FindAction("Interact").Enable();
+            }
+            else
+            {
+                player.FindAction("Interact").Disable();
+            }
+
+            player.FindAction("Interact").performed += grab;
+          
+            foreach (GameObject item in ObjNearPlayer)
+            {
+                if (item.CompareTag("Interactable"))
+                {
+
+                    item.GetComponent<Interactable>().EnableInteract();
+                    currInteracted = item.gameObject;
+                }
+            }
+            
+
         }
 
         rb.AddForce(forceDirection, ForceMode.Impulse);
@@ -73,6 +130,24 @@ public class ThirdPersonController : MonoBehaviour
         }
         else { LookAt(); }
         
+    }
+
+    private void grab(InputAction.CallbackContext context)
+    {
+        if (!isInteract)
+        {
+            Debug.Log("grab");
+            currInteracted.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+            currInteracted.transform.parent = transform;
+            isInteract = true;
+        }
+        else
+        {
+            Debug.Log("drop");
+            currInteracted.transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z + 1);
+            currInteracted.transform.SetParent(null);
+            isInteract = false;
+        }
     }
 
     private void LookAt()
@@ -99,5 +174,28 @@ public class ThirdPersonController : MonoBehaviour
         right.y = 0;
         return right.normalized;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Field"))
+        {
+            isOnField = true;
+            isOnSource = false;
+        }
+        if (other.CompareTag("Source"))
+        {
+            isOnSource = true;
+            isOnField = false;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Debug.DrawLine(transform.position, transform.position + transform.forward * currDist);
+        Gizmos.DrawWireSphere(transform.position + transform.forward * currDist, radius);
+    }
+
+   
 
 }
