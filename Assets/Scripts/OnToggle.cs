@@ -7,11 +7,12 @@ using UnityEngine.InputSystem;
 public class OnToggle : MonoBehaviour
 {
     private PlayerInputManager m_PlayerInputManager;
-
+    private EnemySpawner m_EnemySpawner;
     // Start is called before the first frame update
     void Awake()
     {
         m_PlayerInputManager = FindObjectOfType<PlayerInputManager>();
+        m_EnemySpawner = FindObjectOfType<EnemySpawner>();
     }
     private void Update()
     {
@@ -29,6 +30,7 @@ public class OnToggle : MonoBehaviour
 
     private void ToggleThis(PlayerInput player)
     {
+        //StartCoroutine(m_EnemySpawner.spawnEnemy());
         this.gameObject.SetActive(false);
     }
 

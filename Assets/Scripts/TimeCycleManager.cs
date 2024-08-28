@@ -9,7 +9,7 @@ public class LightingManager : MonoBehaviour
     [SerializeField] 
     private LightingPreset Preset;
     //Variables
-    [SerializeField, Range(0, 180)] 
+    [SerializeField, Range(0, 24)] 
     private float TimeOfDay;
     [SerializeField]
     private bool isNight;
@@ -21,27 +21,30 @@ public class LightingManager : MonoBehaviour
     {
         if (Preset == null)
             return;
+        //while (isNight) buffedSpawnRate = true;
 
         if(TimeOfDay > 40 || TimeOfDay < 140)
         {
             isDay = true;
             isNight = false;
+            buffedSpawnRate = false;
         }
-        if(TimeOfDay < 40 || TimeOfDay > 140)
+        if (TimeOfDay < 40 || TimeOfDay > 140)
         {
             isDay = false;
             isNight = true;
+            buffedSpawnRate = true;
         }
         if (Application.isPlaying)
         {
             //(Replace with a reference to the game time)
             TimeOfDay += Time.deltaTime;
-            TimeOfDay %= 180; //Modulus to ensure always between 0-24
-            UpdateLighting(TimeOfDay / 180f);
+            TimeOfDay %= 24f; //Modulus to ensure always between 0-24
+            UpdateLighting(TimeOfDay / 24f);
         }
         else
         {
-            UpdateLighting(TimeOfDay / 180f);
+            UpdateLighting(TimeOfDay / 24f);
         }
     }
 

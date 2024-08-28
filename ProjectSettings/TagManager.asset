@@ -8,6 +8,8 @@ TagManager:
   - Source
   - Seed
   - Interactable
+  - EnemySpawner
+  - Enemy
   layers:
   - Default
   - TransparentFX
