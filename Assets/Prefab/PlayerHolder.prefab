@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 979580309630457381}
   - component: {fileID: 6738380523046887021}
   - component: {fileID: 1266336401703734934}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 7626772166867286529}
   - component: {fileID: 6877491778793589286}
   - component: {fileID: 4669622515706567429}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -266,10 +266,11 @@ GameObject:
   - component: {fileID: 8921993725851793894}
   - component: {fileID: 6202377384690304240}
   - component: {fileID: 8659713144838099853}
+  - component: {fileID: 5947377655129812119}
   - component: {fileID: 1051875424637292615}
   - component: {fileID: 1737715962092603929}
   - component: {fileID: 6345909131952297878}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player2
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -369,8 +370,23 @@ MonoBehaviour:
     m_Bits: 4294967295
   currDist: 0
   playerCamera: {fileID: 4150472824136187226}
+  camTransform: {fileID: 1196491691142878290}
   seedObj: {fileID: 2239011280999109397, guid: 8a9da6a39c0209349981cd87af453389, type: 3}
   currInteracted: {fileID: 0}
+--- !u!114 &5947377655129812119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2314503298108929018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d193a337e920584b9f08db2c2a20ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currHP: 0
+  healthUI: {fileID: 575316243367008006, guid: a59c10ed7a0b7c344997cb049a320b4d, type: 3}
 --- !u!114 &1051875424637292615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,7 +477,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5911910860923828717}
   - component: {fileID: 1387928423013248062}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BottomRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +492,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2515555342269520448}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018141508, y: -0.00000004672217, z: 0.000000024675291, w: 0.9998355}
+  m_LocalRotation: {x: -0.018141493, y: -0.000000032844575, z: 0.000000017346146, w: 0.9998355}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -539,7 +555,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8038985596808888971}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerHolder
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -573,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7371654000676231873}
   - component: {fileID: 3221267539432759893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MiddleRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -654,7 +670,7 @@ GameObject:
   - component: {fileID: 5843040838421227656}
   - component: {fileID: 7053322011950967676}
   - component: {fileID: 1477189565393241317}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: cm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -783,7 +799,7 @@ GameObject:
   - component: {fileID: 264345231853629396}
   - component: {fileID: 1412959000902165053}
   - component: {fileID: 8097494851830307025}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Camera TP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1046,7 +1062,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7949279950599840514}
   - component: {fileID: 2021203578616618506}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TopRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}

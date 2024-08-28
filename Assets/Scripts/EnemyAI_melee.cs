@@ -5,19 +5,20 @@ using UnityEngine.AI;
 public class EnemyAI_melee : MonoBehaviour
 {
     [SerializeField]
+    private float damage;
+    [SerializeField]
     private float speed;
     [SerializeField]
     private float movementForce;
+    private float x, z;
+
     [SerializeField]
     private GameObject targetObj;
     [SerializeField]
     private NavMeshAgent agent;
     [SerializeField]
     private LayerMask layermask;
-    private bool inAttackRange;
-    private float x, z;
     private Vector3 targetLoc;
-
     void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
@@ -48,10 +49,12 @@ public class EnemyAI_melee : MonoBehaviour
             Vector3 targetDir = (targetObj.transform.position - transform.position).normalized;
             if (Vector3.Distance(transform.position, targetObj.transform.position) > 3f)
             {
+                StopAllCoroutines();
                 agent.SetDestination(targetObj.transform.position);
             }
             else
             {
+                StartCoroutine(attack());
                 agent.SetDestination(transform.position);
             }
         }
@@ -67,9 +70,24 @@ public class EnemyAI_melee : MonoBehaviour
 
 
     }
+    IEnumerator attack()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2f);
+            RaycastHit[] hit;
+            hit = Physics.SphereCastAll(transform.position, 3f, transform.forward, 1, layermask, QueryTriggerInteraction.UseGlobal);
+            foreach (RaycastHit item in hit)
+            {
+                if (item.transform.gameObject.CompareTag("Player"))
+                {
+                    item.transform.gameObject.GetComponent<PlayerStats>().damage(damage);
+                }
+            }
+        }
+    }
 
-    
-    public void randomSpawnLoc()
+    private void randomSpawnLoc()
     {
         x = Random.Range(transform.position.x - 5, transform.position.x + 5);
         z = Random.Range(transform.position.z - 5, transform.position.z + 5);

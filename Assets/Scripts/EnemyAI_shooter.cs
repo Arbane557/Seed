@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 
 public class EnemyAI_shooter : MonoBehaviour
@@ -8,12 +9,14 @@ public class EnemyAI_shooter : MonoBehaviour
     private GameObject targetObj;
     [SerializeField]
     private GameObject projectile;
+    private Transform projectileSpawn;
     [SerializeField]
     private LayerMask layermask;
-
+    private Vector3 dir;
+    private bool isShooting;
     void Start()
     {
-
+        projectileSpawn = transform.GetChild(1);
     }
     void Update()
     {
@@ -33,20 +36,28 @@ public class EnemyAI_shooter : MonoBehaviour
 
         if(targetObj != null)
         {
-            transform.LookAt(new Vector3(targetObj.transform.position.x,transform.position.y,targetObj.transform.position.z));
+            dir = targetObj.transform.position - transform.position; 
+            dir = dir.normalized;
+            transform.forward = dir;
+            if(!isShooting)
             StartCoroutine(shoot());
         }
         else
         {
             StopAllCoroutines();
-            transform.LookAt(new Vector3(0,1,0));
+            isShooting = false;
         }
     }
 
     IEnumerator shoot()
     {
-        yield return new WaitForSeconds(3f);
-        GameObject bullet = Instantiate(projectile.gameObject, transform.position, this.transform.rotation);
-        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 100);
+        while (true)
+        {
+            isShooting = true;
+            yield return new WaitForSeconds(1.9f);
+            GameObject bullet = Instantiate(projectile.gameObject, projectileSpawn.position, this.transform.rotation);
+            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+        }      
     }
 }
+    

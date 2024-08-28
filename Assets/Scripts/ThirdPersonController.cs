@@ -40,6 +40,7 @@ public class ThirdPersonController : MonoBehaviour
 
     [SerializeField]
     private Camera playerCamera;
+    public Transform camTransform;
     [SerializeField]
     private GameObject seedObj;
     [SerializeField]
