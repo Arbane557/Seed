@@ -12,6 +12,9 @@ public class EnemyAI_melee : MonoBehaviour
     private float movementForce;
     private float x, z;
 
+    private bool isAttack;
+    [SerializeField]
+    private bool hasAttacked;
     [SerializeField]
     private GameObject targetObj;
     [SerializeField]
@@ -21,6 +24,8 @@ public class EnemyAI_melee : MonoBehaviour
     private Vector3 targetLoc;
     void Start()
     {
+        //StartCoroutine(attack());
+
         agent = gameObject.GetComponent<NavMeshAgent>();
         randomSpawnLoc();
     }
@@ -50,11 +55,17 @@ public class EnemyAI_melee : MonoBehaviour
             if (Vector3.Distance(transform.position, targetObj.transform.position) > 3f)
             {
                 StopAllCoroutines();
+                hasAttacked = false;
+                isAttack = false;
                 agent.SetDestination(targetObj.transform.position);
             }
             else
             {
-                StartCoroutine(attack());
+                if (!hasAttacked)
+                {
+                    StartCoroutine(attack());
+                    hasAttacked = true;
+                }
                 agent.SetDestination(transform.position);
             }
         }
@@ -72,19 +83,26 @@ public class EnemyAI_melee : MonoBehaviour
     }
     IEnumerator attack()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(2f);
+        
+            Debug.Log("true");
             RaycastHit[] hit;
             hit = Physics.SphereCastAll(transform.position, 3f, transform.forward, 1, layermask, QueryTriggerInteraction.UseGlobal);
             foreach (RaycastHit item in hit)
             {
-                if (item.transform.gameObject.CompareTag("Player"))
+                if (!isAttack)
                 {
-                    item.transform.gameObject.GetComponent<PlayerStats>().damage(damage);
+                    if (item.transform.gameObject.CompareTag("Player"))
+                    {
+                        isAttack = true;
+                        item.transform.gameObject.GetComponent<PlayerStats>().damage(damage);
+                    }
                 }
             }
-        }
+            yield return new WaitForSeconds(2f);
+            isAttack = false;
+            Debug.Log("false");
+
+        
     }
 
     private void randomSpawnLoc()
