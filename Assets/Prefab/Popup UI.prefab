@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3762468452746293686}
   - component: {fileID: 3720921072655501426}
   m_Layer: 5
-  m_Name: Popup Health
+  m_Name: Popup UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3720921072655501426
 MonoBehaviour:
   m_ObjectHideFlags: 0

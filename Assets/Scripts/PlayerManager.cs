@@ -38,19 +38,13 @@ public class PlayerManager : MonoBehaviour
     {
         players.Add(player);
         
-        //need to use the parent due to the structure of the prefab
         Transform playerParent = player.transform.parent;
         playerObj.Add(playerParent.gameObject);
-        //playerParent.position = startingPoints[players.Count - 1].position;
-
-        //convert layer mask (bit) to an integer 
+       
         int layerToAdd = (int)Mathf.Log(playerLayers[players.Count - 1].value, 2);
 
-        //set the layer
         playerParent.GetComponentInChildren<CinemachineFreeLook>().gameObject.layer = layerToAdd;
-        //add the layer
         playerParent.GetComponentInChildren<Camera>().cullingMask += playerLayers[players.Count];
-        //set the action in the custom cinemachine Input Handler
         playerParent.GetComponentInChildren<InputHandler>().horizontal = player.actions.FindAction("Look");
 
     }

@@ -22,7 +22,6 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField]
     private bool isOnSource;
     public bool isInteract;
-    //movement fields
     private Rigidbody rb;
     [SerializeField]
     public float movementForce = 1f;
