@@ -10,6 +10,12 @@ TagManager:
   - Interactable
   - EnemySpawner
   - Enemy
+  - 1
+  - 2
+  - 3
+  - CAM
+  - Main Tree
+  - CAM2
   layers:
   - Default
   - TransparentFX
@@ -19,7 +25,7 @@ TagManager:
   - UI
   - P1
   - P2
-  - 
+  - UI2
   - 
   - 
   - 

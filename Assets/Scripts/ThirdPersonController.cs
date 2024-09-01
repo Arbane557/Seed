@@ -15,8 +15,8 @@ public class ThirdPersonController : MonoBehaviour
     private InputAction move;
     private InputAction interact;
 
-    public bool isPLayer1;
-    public bool isPLayer2;
+    public bool isPlayer1;
+    public bool isPlayer2;
     [SerializeField]
     private bool isOnField;
     [SerializeField]
@@ -44,8 +44,11 @@ public class ThirdPersonController : MonoBehaviour
     private GameObject seedObj;
     [SerializeField]
     private GameObject currInteracted;
+    [SerializeField]
+    private GameObject dropZone;
     private void Awake()
     {
+        
         rb = this.GetComponent<Rigidbody>();
         inputAsset = this.GetComponent<PlayerInput>().actions;
         player = inputAsset.FindActionMap("Player");
@@ -66,27 +69,17 @@ public class ThirdPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isPLayer2)
+        
+        forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
+        forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
+
+        foreach (GameObject item in ObjNearPlayer)
         {
-            forceDirection.x = move.ReadValue<Vector2>().x * movementForce;
-            forceDirection.z = move.ReadValue<Vector2>().y * movementForce;
-            if (isOnSource)
+            if (item.CompareTag("Interactable"))
             {
-                player.FindAction("Ability").performed += ability;
+                    item.GetComponent<Interactable>().EnableInteract();
             }
         }
-        else
-        {
-            forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
-            forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
-
-            foreach (GameObject item in ObjNearPlayer)
-            {
-                if (item.CompareTag("Interactable"))
-                {
-                    item.GetComponent<Interactable>().EnableInteract();
-                }
-            }
             ObjNearPlayer.Clear();
             RaycastHit[] hit;
             hit = Physics.SphereCastAll(transform.position, radius, transform.forward, maxdist, layermask, QueryTriggerInteraction.UseGlobal);
@@ -98,8 +91,8 @@ public class ThirdPersonController : MonoBehaviour
                 }
             }
 
-            
-            player.FindAction("Interact").performed += grab;
+         player.FindAction("Interact").performed += grab;
+       
 
             if (ObjNearPlayer != null)
             {
@@ -121,8 +114,7 @@ public class ThirdPersonController : MonoBehaviour
             {
                 currInteracted = null;
             }
-        }
-
+        
 
 
         rb.AddForce(forceDirection, ForceMode.Impulse);
@@ -136,39 +128,33 @@ public class ThirdPersonController : MonoBehaviour
         if (horizontalVelocity.sqrMagnitude > maxSpeed * maxSpeed)
             rb.velocity = horizontalVelocity.normalized * maxSpeed + Vector3.up * rb.velocity.y;
 
-        if (isPLayer2)
-        {
-
-        }
-        else { LookAt(); }
+        LookAt();
         
     }
-
     private void grab(InputAction.CallbackContext context)
     {
         if (!isInteract)
         {
             Debug.Log("grab");
-            currInteracted.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+            if (isPlayer2)
+            {
+                if(currInteracted.GetComponent<SeedHandler>().isReady == false)
+                {
+                    return;
+                }
+            }
+            currInteracted.transform.position = dropZone.transform.position;
             currInteracted.transform.parent = transform;
             isInteract = true;
         }
         else
         {
             Debug.Log("drop");
-            currInteracted.transform.position = new Vector3(transform.position.x + 1, transform.position.y, transform.position.z + 1);
+            currInteracted.transform.position = dropZone.transform.position;
             currInteracted.transform.SetParent(null);
             isInteract = false;
         }
     }
-
-    private void ability(InputAction.CallbackContext context)
-    {
-        Debug.Log("pew");
-        GameObject spawnedSeed = Instantiate(seedObj,transform.position, Quaternion.identity);
-        spawnedSeed.transform.position = this.transform.position;
-    }
-
     private void LookAt()
     {
         Vector3 direction = rb.velocity;
@@ -186,14 +172,12 @@ public class ThirdPersonController : MonoBehaviour
         forward.y = 0;
         return forward.normalized;
     }
-
     private Vector3 GetCameraRight(Camera playerCamera)
     {
         Vector3 right = playerCamera.transform.right;
         right.y = 0;
         return right.normalized;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Field"))
@@ -207,7 +191,6 @@ public class ThirdPersonController : MonoBehaviour
             isOnField = false;
         }
     }
-
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

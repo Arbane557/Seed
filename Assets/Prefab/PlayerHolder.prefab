@@ -254,6 +254,37 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
+--- !u!1 &2035984593223669820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3729768350561373604}
+  m_Layer: 6
+  m_Name: DropTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3729768350561373604
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035984593223669820}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.99}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5586934255142455034}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2314503298108929018
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +302,7 @@ GameObject:
   - component: {fileID: 1737715962092603929}
   - component: {fileID: 6345909131952297878}
   m_Layer: 6
-  m_Name: Player2
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,7 +320,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3729768350561373604}
   m_Father: {fileID: 8038985596808888971}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8921993725851793894
@@ -355,8 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ObjNearPlayer: []
-  isPLayer1: 0
-  isPLayer2: 0
+  isPlayer1: 0
+  isPlayer2: 0
   isOnField: 0
   isOnSource: 0
   isInteract: 0
@@ -373,6 +405,7 @@ MonoBehaviour:
   camTransform: {fileID: 1196491691142878290}
   seedObj: {fileID: 2239011280999109397, guid: 8a9da6a39c0209349981cd87af453389, type: 3}
   currInteracted: {fileID: 0}
+  dropZone: {fileID: 2035984593223669820}
 --- !u!114 &5947377655129812119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +419,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currHP: 0
-  healthUI: {fileID: 575316243367008006, guid: a59c10ed7a0b7c344997cb049a320b4d, type: 3}
+  healthUI1: {fileID: 575316243367008006, guid: a74acd74de6a154428de89f1b432d536, type: 3}
+  healthUI2: {fileID: 575316243367008006, guid: d3129bdf8f4846e4fb2b33be4bf6246d, type: 3}
+  sl: {fileID: 0}
+  camTransform: {fileID: 0}
+  UILayers:
+  - serializedVersion: 2
+    m_Bits: 32
+  - serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1051875424637292615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -801,7 +842,7 @@ GameObject:
   - component: {fileID: 8097494851830307025}
   m_Layer: 6
   m_Name: Camera TP
-  m_TagString: Untagged
+  m_TagString: CAM
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -863,7 +904,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 247
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8fab537d6aa70e94ba207fb7b9a7e229
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - popUpProgress: {instanceID: 0}
+  - camTransform: {instanceID: 0}
+  - readyMats: {fileID: 2100000, guid: f22bf6db981f33147b36fa487efdc8e1, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

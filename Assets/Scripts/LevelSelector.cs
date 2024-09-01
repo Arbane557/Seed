@@ -57,18 +57,14 @@ public class LevelSelector : MonoBehaviour
     }
     private void Update()
     {
-        if(r || l)
-        {
+        if(r || l){
             if (Mathf.Abs(totalRotation) < Mathf.Abs(rotationDegreesAmount)) SwingOpen();
-            else
-            {
+            else{
                 r = false; l = false;
             }
         } 
         if(start) camTransform.transform.position = Vector3.MoveTowards(camTransform.transform.position, targetCamLoc, 10f*Time.deltaTime);
         if(camTransform.transform.position.z >= targetCamLoc.z) SceneManager.LoadScene(sceneName[i]);
-
-
     }
     void SwingOpen()
     {
