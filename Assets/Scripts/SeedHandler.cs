@@ -25,6 +25,8 @@ public class SeedHandler : MonoBehaviour
     [SerializeField]
     private Transform camTransform2;
     [SerializeField]
+    private Transform signPivot;
+    [SerializeField]
     private Material readyMats;
    
     [SerializeField]
@@ -50,7 +52,7 @@ public class SeedHandler : MonoBehaviour
         isReady = isAllDone();
         if(GameObject.FindGameObjectWithTag("CAM") != null)
         camTransform1 = GameObject.FindGameObjectWithTag("CAM").transform;
-        if (camTransform1 != null) popUpProgress.transform.LookAt(camTransform1.position);  
+        if (camTransform1 != null) { popUpProgress.transform.LookAt(camTransform1.position); signPivot.transform.rotation = popUpProgress.transform.rotation; } 
         popUpProgress.GetComponentInChildren<Slider>().value = progress / 10;
         if (!isReady)
         {
@@ -81,14 +83,24 @@ public class SeedHandler : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.CompareTag("Main Tree"))
-        {
-            other.gameObject.GetComponent<MainTree>().spawnedSeedObj.Add(this.gameObject);
-            Debug.Log("Set");
-        }
+       
         if (other.gameObject.CompareTag("" + setIngredient[progressCount])) isCharging = true;
         else isCharging = false;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("POT"))
+        {
+            if (isReady)
+            {
+                if(other.gameObject.GetComponent<PotHandler>().seeds.Count < 5)
+                    other.gameObject.GetComponent<PotHandler>().seeds.Add(this.gameObject);
+
+            }
+            Debug.Log("Entered Pot");
+        }
+    }
+
     void charge(bool correctPos)
     {
         popUpProgress.SetActive(true);

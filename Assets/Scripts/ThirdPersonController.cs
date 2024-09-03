@@ -44,8 +44,7 @@ public class ThirdPersonController : MonoBehaviour
     private GameObject seedObj;
     [SerializeField]
     private GameObject currInteracted;
-    [SerializeField]
-    private GameObject dropZone;
+    public GameObject dropZone;
     private void Awake()
     {
         
@@ -72,51 +71,50 @@ public class ThirdPersonController : MonoBehaviour
         
         forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
         forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
-
         foreach (GameObject item in ObjNearPlayer)
         {
             if (item.CompareTag("Interactable"))
             {
-                    item.GetComponent<Interactable>().EnableInteract();
+                item.GetComponent<Interactable>().EnableInteract();
             }
         }
-            ObjNearPlayer.Clear();
-            RaycastHit[] hit;
-            hit = Physics.SphereCastAll(transform.position, radius, transform.forward, maxdist, layermask, QueryTriggerInteraction.UseGlobal);
-            foreach (RaycastHit item in hit)
+        ObjNearPlayer.Clear();
+        RaycastHit[] hit;
+        hit = Physics.SphereCastAll(transform.position, radius, transform.forward, maxdist, layermask, QueryTriggerInteraction.UseGlobal);
+        foreach (RaycastHit item in hit)
+        {
+            if (item.transform.gameObject.CompareTag("Interactable"))
             {
-                if (item.transform.gameObject.CompareTag("Interactable"))
-                {
-                    ObjNearPlayer.Add(item.transform.gameObject);
-                }
-            }
+                ObjNearPlayer.Add(item.transform.gameObject);
+            }      
 
-         player.FindAction("Interact").performed += grab;
-       
+        }
+        player.FindAction("Interact").performed += grab;
 
-            if (ObjNearPlayer != null)
+        if (ObjNearPlayer != null)
+        {
+            closestObjDist = 10f;
+            foreach (GameObject item in ObjNearPlayer)
             {
-                closestObjDist = 10f;
-                foreach (GameObject item in ObjNearPlayer)
+                item.GetComponent<Interactable>().EnableInteract();
+                if (!isInteract)
                 {
-                    item.GetComponent<Interactable>().EnableInteract();
-                    if (!isInteract)
+                    if (Vector3.Distance(this.transform.position, item.transform.position) < closestObjDist)
                     {
-                        if (Vector3.Distance(this.transform.position, item.transform.position) < closestObjDist)
-                        {
-                            currInteracted = item.gameObject;
-                            closestObjDist = Vector3.Distance(this.transform.position, item.transform.position);
-                        }
+                        currInteracted = item.gameObject;
+                        closestObjDist = Vector3.Distance(this.transform.position, item.transform.position);
                     }
                 }
             }
-            else
+        }
+        if (!isInteract)
+        {
+            if(ObjNearPlayer.Count < 1)
             {
                 currInteracted = null;
             }
+        }
         
-
-
         rb.AddForce(forceDirection, ForceMode.Impulse);
         forceDirection = Vector3.zero;
 
@@ -135,21 +133,12 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (!isInteract)
         {
-            Debug.Log("grab");
-            if (isPlayer2)
-            {
-                if(currInteracted.GetComponent<SeedHandler>().isReady == false)
-                {
-                    return;
-                }
-            }
             currInteracted.transform.position = dropZone.transform.position;
             currInteracted.transform.parent = transform;
             isInteract = true;
         }
         else
         {
-            Debug.Log("drop");
             currInteracted.transform.position = dropZone.transform.position;
             currInteracted.transform.SetParent(null);
             isInteract = false;

@@ -16,6 +16,9 @@ TagManager:
   - CAM
   - Main Tree
   - CAM2
+  - POT
+  - Cleanse
+  - Station
   layers:
   - Default
   - TransparentFX

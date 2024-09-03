@@ -26,17 +26,14 @@ public class PlayerManager : MonoBehaviour
     {
         playerInputManager = FindObjectOfType<PlayerInputManager>();
     }
-
     private void OnEnable()
     {
         playerInputManager.onPlayerJoined += AddPlayer;
     }
-
     private void OnDisable()
     {
         playerInputManager.onPlayerJoined -= AddPlayer;
     }
-
     public void AddPlayer(PlayerInput player)
     {
         players.Add(player);
@@ -49,10 +46,9 @@ public class PlayerManager : MonoBehaviour
         playerParent.GetComponentInChildren<CinemachineFreeLook>().gameObject.layer = layerToAdd;
         playerParent.GetComponentInChildren<Camera>().cullingMask += playerLayers[players.Count];    
         playerParent.GetComponentInChildren<InputHandler>().horizontal = player.actions.FindAction("Look");
-
     }
     private void Update()
-    {
+    {   
         if (playerObj.Count != 0)
         {
             if (!setupdone1)
