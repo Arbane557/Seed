@@ -20,9 +20,12 @@ public class PotHandler : MonoBehaviour
     private GameObject holder;
     [SerializeField]
     private List<GameObject> plantPrefab = new List<GameObject>();
+    private Vector3 potPos;
+    [SerializeField]
+    private GameObject potPrefab;
     private void Start()
     {
-
+        potPos = transform.position;
     }
     private void Update()
     {
@@ -50,6 +53,7 @@ public class PotHandler : MonoBehaviour
             }
             else
             {
+                Instantiate(potPrefab, potPos, Quaternion.identity);
                 GameObject plantSpawn = Instantiate(plantPrefab[seeds.Count], transform.position, Quaternion.identity);
                 plantSpawn.transform.position = transform.position;
                 isReady = false;
