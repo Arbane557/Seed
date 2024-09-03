@@ -7,9 +7,11 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI countDown;
-    private int countdownTimer;
+    private float countdownTimer;
     private bool WaveStart;
     private int waveNum;
+    [SerializeField]
+    private int waveDuration;
     private void Start()
     {
         waveNum = 0;
@@ -18,21 +20,21 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        countdownTimer -= Mathf.FloorToInt(1 * Time.deltaTime);
-        countDown.text = "Wave " + waveNum + ", " + countdownTimer + " left";
+        countdownTimer -= 1 * Time.deltaTime;
+        countDown.text = "Wave " + waveNum + ", " + Mathf.RoundToInt(countdownTimer) + " left";
         
         if(countdownTimer <0 )
         {       
             if (!WaveStart)
             {
                 waveNum++;
-                countdownTimer = 10;
+                countdownTimer = waveDuration;
                 WaveStart = true;
             }
             else
             {
                 waveNum++;
-                countdownTimer = 10;
+                countdownTimer = waveDuration;
                 WaveStart = false;
             }
         }
