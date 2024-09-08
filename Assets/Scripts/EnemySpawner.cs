@@ -13,16 +13,26 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> enemyPrefab = new List<GameObject>();   
     [SerializeField]
     private LayerMask layermask;
+    private GameManager gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        //StartCoroutine(spawnEnemy());
+        gameManager = this.gameObject.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameManager.WaveStart)
+        {
+            StartCoroutine(spawnEnemy());
+        }
+        else
+        {
+            StopAllCoroutines();
+        }
+
         spawnLoc = new Vector3(x, 1, z);
     }
 

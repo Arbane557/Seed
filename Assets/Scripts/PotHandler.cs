@@ -54,8 +54,10 @@ public class PotHandler : MonoBehaviour
             else
             {
                 Instantiate(potPrefab, potPos, Quaternion.identity);
-                GameObject plantSpawn = Instantiate(plantPrefab[seeds.Count], transform.position, Quaternion.identity);
-                plantSpawn.transform.position = transform.position;
+                GameObject plantSpawn = Instantiate(plantPrefab[seeds.Count - 1], transform.position, Quaternion.identity);
+                plantSpawn.transform.position = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
+                plantSpawn.transform.SetParent(transform);
+                holder.GetComponent<ThirdPersonController>().isInteract = false;
                 isReady = false;
                 progress = 0;
                 IsCharging = false;

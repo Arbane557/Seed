@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI countDown;
     private float countdownTimer;
-    private bool WaveStart;
+    public bool WaveStart;
     private int waveNum;
     [SerializeField]
     private int waveDuration;
