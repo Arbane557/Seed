@@ -45,7 +45,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Spawn");
+            //Debug.Log("Spawn");
             GameObject enemy = Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Count - 1)]);
             randomSpawnLoc();
             enemy.transform.position = spawnLoc;

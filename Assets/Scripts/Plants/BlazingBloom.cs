@@ -11,9 +11,13 @@ public class BlazingBloom : MonoBehaviour
     private LayerMask layermask;
     [SerializeField]
     private GameObject explosionEffect;
+    private bool isInitiated = false;
     private void Start()
     {
-        StartCoroutine(attack());
+    }
+    private void Update()
+    {
+        if (!isInitiated) {StartCoroutine(attack()); isInitiated = true;}    
     }
     IEnumerator attack()
     {
@@ -27,6 +31,7 @@ public class BlazingBloom : MonoBehaviour
             {
                 if (item.transform.gameObject.CompareTag("Enemy"))
                 {
+                    Debug.Log("hit");
                     item.transform.gameObject.GetComponent<EnemyStats>().takeDamage(damage);
                 }
             }

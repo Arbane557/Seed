@@ -70,8 +70,8 @@ public class EnemyAI_melee : MonoBehaviour
         }
         else
         {
-            agent.SetDestination(targetLoc);
             transform.LookAt(targetLoc);
+            agent.SetDestination(targetLoc);
             if (Vector3.Distance(transform.position, targetLoc) < 1f)
             {
                 randomSpawnLoc();

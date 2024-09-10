@@ -12,11 +12,15 @@ public class EnemyStats : MonoBehaviour
     {
         health = maxHealth;
     }
-    public IEnumerator takeDamage(float damage)
+    private void Update()
+    {
+        if(health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+    public void takeDamage(float damage)
     {
         health -= damage;
-
-        yield return new WaitForSeconds(0.5f);
-
     }
 }

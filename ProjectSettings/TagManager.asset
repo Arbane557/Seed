@@ -20,6 +20,8 @@ TagManager:
   - Cleanse
   - Station
   - GameManager
+  - P1
+  - P2
   layers:
   - Default
   - TransparentFX

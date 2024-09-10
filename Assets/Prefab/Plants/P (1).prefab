@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -2
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5987775035392366340
 MeshFilter:
@@ -122,3 +122,4 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 4294967295
+  explosionEffect: {fileID: 2973664635677197389, guid: e54402f2df774174588e14bfde257088, type: 3}

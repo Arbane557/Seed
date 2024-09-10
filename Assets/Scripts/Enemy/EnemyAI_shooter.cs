@@ -28,10 +28,8 @@ public class EnemyAI_shooter : MonoBehaviour
             {
                 targetObj = item.transform.gameObject;
             }
-            else
-            {
-                targetObj = null;
-            }
+            else targetObj = null;
+           
         }
 
         if(targetObj != null)
