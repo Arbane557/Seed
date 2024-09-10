@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RadiantSunflower : MonoBehaviour
+public class ManEater : MonoBehaviour
 {
     [SerializeField]
     private float damage;
     [SerializeField]
     private LayerMask layermask;
     [SerializeField]
-    private List<GameObject> buffedPlants = new List<GameObject>();
+    private GameObject explosionEffect;
     private bool isInitiated = false;
-   
+    private void Start()
+    {
+    }
     private void Update()
     {
         if (!isInitiated) { StartCoroutine(attack()); isInitiated = true; }
@@ -20,21 +22,19 @@ public class RadiantSunflower : MonoBehaviour
     {
         while (true)
         {
-            buffedPlants.Clear();
+            transform.localScale = transform.localScale * 2 / 3f;
+            yield return new WaitForSeconds(7f);
             RaycastHit[] hit;
             hit = Physics.SphereCastAll(transform.position, 6f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
             foreach (RaycastHit item in hit)
             {
-                if (item.transform.gameObject.CompareTag("Plant"))
+                if (item.transform.gameObject.CompareTag("Enemy"))
                 {
-                    buffedPlants.Add(item.transform.gameObject);
+                    Destroy(item.transform.gameObject);
                 }
             }
             transform.localScale = transform.localScale * 1.5f;
-            foreach (var item in buffedPlants)
-            {
-                item.GetComponent<PlantStatus>().IsBuffed = true;
-            }
+            Instantiate(explosionEffect, transform.position, Quaternion.identity);
         }
     }
 }

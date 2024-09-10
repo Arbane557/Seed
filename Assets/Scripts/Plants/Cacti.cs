@@ -30,7 +30,7 @@ public class Cacti : MonoBehaviour
             }
             else { currTarget = null;}
         }
-        if (ObjNear != null)
+        if (ObjNear.Count > 0)
         {
             float closestObjDist = 10f;
             foreach (GameObject item in ObjNear)
