@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private LayerMask layermask;
     private GameManager gameManager;
-    
+    private bool Spawning;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,11 +26,16 @@ public class EnemySpawner : MonoBehaviour
     {
         if (gameManager.WaveStart)
         {
-            StartCoroutine(spawnEnemy());
+            if (!Spawning)
+            {
+                StartCoroutine(spawnEnemy());
+                Spawning = true;
+            }
         }
         else
         {
             StopAllCoroutines();
+            Spawning = false;
         }
 
         spawnLoc = new Vector3(x, 1, z);

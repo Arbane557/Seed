@@ -24,8 +24,7 @@ public class EnemyAI_melee : MonoBehaviour
     private Vector3 targetLoc;
     void Start()
     {
-        //StartCoroutine(attack());
-
+        
         agent = gameObject.GetComponent<NavMeshAgent>();
         randomSpawnLoc();
     }
@@ -83,7 +82,8 @@ public class EnemyAI_melee : MonoBehaviour
     }
     IEnumerator attack()
     {
-        
+        while (true)
+        {
             Debug.Log("true");
             RaycastHit[] hit;
             hit = Physics.SphereCastAll(transform.position, 3f, transform.forward, 1, layermask, QueryTriggerInteraction.UseGlobal);
@@ -101,7 +101,7 @@ public class EnemyAI_melee : MonoBehaviour
             yield return new WaitForSeconds(2f);
             isAttack = false;
             Debug.Log("false");
-
+        }
         
     }
 

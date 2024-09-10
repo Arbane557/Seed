@@ -19,6 +19,7 @@ TagManager:
   - POT
   - Cleanse
   - Station
+  - GameManager
   layers:
   - Default
   - TransparentFX
