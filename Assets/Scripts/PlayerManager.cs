@@ -46,6 +46,8 @@ public class PlayerManager : MonoBehaviour
         playerParent.GetComponentInChildren<CinemachineFreeLook>().gameObject.layer = layerToAdd;
         playerParent.GetComponentInChildren<Camera>().cullingMask += playerLayers[players.Count];    
         playerParent.GetComponentInChildren<InputHandler>().horizontal = player.actions.FindAction("Look");
+        Debug.Log(playerParent.GetComponentInChildren<InputHandler>().horizontal);
+        Debug.Log("ho");    
     }
     private void Update()
     {   
@@ -55,6 +57,7 @@ public class PlayerManager : MonoBehaviour
             {
                 GameObject player1 = playerObj[0];
                 player1.gameObject.name = "player1";
+
                 ThirdPersonController tpc1 = player1.GetComponentInChildren<ThirdPersonController>();
                 tpc1.isPlayer1 = true;
                 tpc1.camTransform = player1.transform.GetChild(1);
@@ -67,8 +70,8 @@ public class PlayerManager : MonoBehaviour
                 {
                     GameObject player2 = playerObj[1];
                     player2.gameObject.name = "player2";
+
                     ThirdPersonController tpc2 = player2.GetComponentInChildren<ThirdPersonController>();
-                    player2.transform.GetChild(1).tag = "CAM2";
                     tpc2.isPlayer2 = true;
                     tpc2.camTransform = player2.transform.GetChild(1);
                     player2.transform.GetChild(1).GetComponent<Camera>().cullingMask -= UILayers[0];

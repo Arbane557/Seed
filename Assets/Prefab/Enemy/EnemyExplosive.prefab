@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   movementForce: 0
-  damage: 0
+  damage: 40
   targetObj: {fileID: 0}
   explosionEffect: {fileID: 2973664635677197389, guid: e54402f2df774174588e14bfde257088, type: 3}
   agent: {fileID: 0}

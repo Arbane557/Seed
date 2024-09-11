@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEditor.Progress;
@@ -68,7 +69,8 @@ public class ThirdPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        transform.parent.GetChild(1).GetComponent<InputHandler>().horizontal = player.FindAction("Look");
+
         forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
         forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
         foreach (GameObject item in ObjNearPlayer)

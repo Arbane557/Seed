@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField, Range(0,100)]
-    private float currHP;
+    public float currHP;
     private float maxHP = 100f;
 
     [SerializeField]

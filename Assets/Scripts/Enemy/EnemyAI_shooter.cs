@@ -54,7 +54,7 @@ public class EnemyAI_shooter : MonoBehaviour
             isShooting = true;
             yield return new WaitForSeconds(1.9f);
             GameObject bullet = Instantiate(projectile.gameObject, projectileSpawn.position, this.transform.rotation);
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 700);
         }      
     }
 }
