@@ -6,15 +6,17 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField, Range(0,100)]
+    [SerializeField]
     public float currHP;
+    [SerializeField]
     private float maxHP = 100f;
     public bool isDead;
-
+    public bool isGameOver;
     [SerializeField]
     private GameObject healthUI1;
     [SerializeField]
     private GameObject healthUI2;
+    [SerializeField]
     private GameObject HealthUI;
     public Slider sl;
     public Transform camTransform;
@@ -28,11 +30,15 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         TPC = gameObject.GetComponent<ThirdPersonController>();
+        if(TPC != null )
         camTransform = TPC.camTransform;
         currHP = maxHP;
 
-        if(TPC.isPlayer1) HealthUI = Instantiate(healthUI1, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), Quaternion.identity);
-        if(TPC.isPlayer2) HealthUI = Instantiate(healthUI2, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), Quaternion.identity);
+        if (TPC != null)
+        {
+            if (TPC.isPlayer1) HealthUI = Instantiate(healthUI1, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), Quaternion.identity);
+            else if (TPC.isPlayer2) HealthUI = Instantiate(healthUI2, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), Quaternion.identity);
+        }
         HealthUI.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
         countDown = HealthUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         countDown.gameObject.SetActive(false);
@@ -43,7 +49,13 @@ public class PlayerStats : MonoBehaviour
         HealthUI.transform.LookAt(camTransform);
         sl = HealthUI.transform.GetChild(0).GetComponent<Slider>();
         sl.value = currHP / maxHP;
-        if (currHP <= 0) isDead = true;
+        if (currHP <= 0)
+        {
+            if (TPC != null)
+                isDead = true;
+            else isGameOver = true;
+        }
+        if(TPC != null)
         TPC.isDead = isDead;
         if (isDead)
         {
@@ -57,6 +69,7 @@ public class PlayerStats : MonoBehaviour
                 currHP = maxHP;
                 isDead = false;
                 respawnTime = 10;
+                if (TPC != null)
                 TPC.isDead = isDead;
                 gameObject.GetComponent<Renderer>().enabled = true;
             }

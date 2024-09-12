@@ -134,13 +134,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0
   movementForce: 0
-  damage: 40
+  damage: 20
   targetObj: {fileID: 0}
   explosionEffect: {fileID: 2973664635677197389, guid: e54402f2df774174588e14bfde257088, type: 3}
   agent: {fileID: 0}
   layermask:
     serializedVersion: 2
     m_Bits: 4294967295
+  ObjNear: []
 --- !u!136 &7672294557569948982
 CapsuleCollider:
   m_ObjectHideFlags: 0

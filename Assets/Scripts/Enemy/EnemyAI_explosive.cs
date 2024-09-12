@@ -66,7 +66,7 @@ public class EnemyAI_explosive : MonoBehaviour
             Vector3 targetDir = (targetObj.transform.position - transform.position).normalized;
             if (!inAttackRange)
             {
-                if (Vector3.Distance(transform.position, targetObj.transform.position) > 2f)
+                if (Vector3.Distance(transform.position, targetObj.transform.position) > 3f)
                 {
                     inAttackRange = false;
                     agent.SetDestination(targetObj.transform.position);
@@ -102,7 +102,7 @@ public class EnemyAI_explosive : MonoBehaviour
         hit = Physics.SphereCastAll(transform.position, 4f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
         foreach (RaycastHit item in hit)
         {
-            if (item.transform.gameObject.CompareTag("Player"))
+            if (item.transform.gameObject.CompareTag("Player") || item.transform.gameObject.CompareTag("Main Tree"))
             {
                 item.transform.gameObject.GetComponent<PlayerStats>().damage(damage);
             }       

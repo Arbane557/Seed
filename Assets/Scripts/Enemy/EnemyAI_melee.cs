@@ -100,7 +100,7 @@ public class EnemyAI_melee : MonoBehaviour
             {
                 if (!isAttack)
                 {
-                    if (item.transform.gameObject.CompareTag("Player"))
+                    if (item.transform.gameObject.CompareTag("Player") || item.transform.gameObject.CompareTag("Main Tree"))
                     {
                         isAttack = true;
                         item.transform.gameObject.GetComponent<PlayerStats>().damage(damage);
