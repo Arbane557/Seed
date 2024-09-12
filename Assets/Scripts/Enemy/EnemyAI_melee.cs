@@ -41,7 +41,7 @@ public class EnemyAI_melee : MonoBehaviour
             {
                 ObjNear.Add(item.transform.gameObject);
             }
-            else { targetObj = null; }
+            else { targetObj = GameObject.FindGameObjectWithTag("Main Tree"); }
         }
         if (ObjNear.Count > 0)
         {

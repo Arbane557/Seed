@@ -38,14 +38,14 @@ public class EnemyAI_explosive : MonoBehaviour
     {
         ObjNear.Clear();
         RaycastHit[] hit;
-        hit = Physics.SphereCastAll(transform.position, 10f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
+        hit = Physics.SphereCastAll(transform.position, 12f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
         foreach (RaycastHit item in hit)
         {
             if (item.transform.gameObject.CompareTag("Player"))
             {
                 ObjNear.Add(item.transform.gameObject);
             }
-            else { targetObj = null; }
+            else { targetObj = GameObject.FindGameObjectWithTag("Main Tree"); }
         }
         if (ObjNear.Count > 0)
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI_shooter : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class EnemyAI_shooter : MonoBehaviour
     private bool isShooting;
     [SerializeField]
     private List<GameObject> ObjNear = new List<GameObject>();
+    [SerializeField]
+    private NavMeshAgent agent;
     void Start()
     {
         projectileSpawn = transform.GetChild(1);
@@ -31,7 +34,7 @@ public class EnemyAI_shooter : MonoBehaviour
             {
                 ObjNear.Add(item.transform.gameObject);
             }
-            else { targetObj = null; }
+            else { targetObj = GameObject.FindGameObjectWithTag("Main Tree"); }
         }
         if (ObjNear.Count > 0)
         {
@@ -51,7 +54,11 @@ public class EnemyAI_shooter : MonoBehaviour
             dir = targetObj.transform.position - transform.position; 
             dir = dir.normalized;
             transform.forward = dir;
-            if(!isShooting)
+            if(Vector3.Distance(transform.position, targetObj.transform.position) > 10f)
+            {
+                agent.SetDestination(targetObj.transform.position);
+            }else agent.SetDestination(transform.position);
+            if (!isShooting)
             StartCoroutine(shoot());
         }
         else
