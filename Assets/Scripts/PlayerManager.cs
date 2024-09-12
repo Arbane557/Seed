@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour
     private PlayerInputManager playerInputManager;
     private bool setupdone1;
     private bool setupdone2;
+    private bool isGameOver;
     private void Awake()
     {
         playerInputManager = FindObjectOfType<PlayerInputManager>();
@@ -34,6 +35,7 @@ public class PlayerManager : MonoBehaviour
     {
         playerInputManager.onPlayerJoined -= AddPlayer;
     }
+   
     public void AddPlayer(PlayerInput player)
     {
         players.Add(player);
@@ -46,8 +48,7 @@ public class PlayerManager : MonoBehaviour
         playerParent.GetComponentInChildren<CinemachineFreeLook>().gameObject.layer = layerToAdd;
         playerParent.GetComponentInChildren<Camera>().cullingMask += playerLayers[players.Count];    
         playerParent.GetComponentInChildren<InputHandler>().horizontal = player.actions.FindAction("Look");
-        Debug.Log(playerParent.GetComponentInChildren<InputHandler>().horizontal);
-        Debug.Log("ho");    
+         
     }
     private void Update()
     {   
@@ -79,6 +80,11 @@ public class PlayerManager : MonoBehaviour
                     setupdone2 = true;
                 }
             }
+        }
+        foreach (var player in playerObj)
+        {
+            if (player.GetComponent<PlayerStats>().isDead == false) continue;
+            else isGameOver = true;
         }
     }
 }

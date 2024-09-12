@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,6 +24,7 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField]
     private bool isOnSource;
     public bool isInteract;
+    public bool isDead;
     private Rigidbody rb;
     [SerializeField]
     public float movementForce = 1f;
@@ -46,9 +48,9 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField]
     private GameObject currInteracted;
     public GameObject dropZone;
+   
     private void Awake()
-    {
-        
+    {       
         rb = this.GetComponent<Rigidbody>();
         inputAsset = this.GetComponent<PlayerInput>().actions;
         player = inputAsset.FindActionMap("Player");
@@ -69,67 +71,68 @@ public class ThirdPersonController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.parent.GetChild(1).GetComponent<InputHandler>().horizontal = player.FindAction("Look");
-
-        forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
-        forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
-        foreach (GameObject item in ObjNearPlayer)
+        isDead = gameObject.GetComponent<PlayerStats>().isDead;
+        if (!isDead)
         {
-            if (item.CompareTag("Interactable"))
-            {
-                item.GetComponent<Interactable>().EnableInteract();
-            }
-        }
-        ObjNearPlayer.Clear();
-        RaycastHit[] hit;
-        hit = Physics.SphereCastAll(transform.position, radius, transform.forward, maxdist, layermask, QueryTriggerInteraction.UseGlobal);
-        foreach (RaycastHit item in hit)
-        {
-            if (item.transform.gameObject.CompareTag("Interactable"))
-            {
-                ObjNearPlayer.Add(item.transform.gameObject);
-            }      
-
-        }
-        player.FindAction("Interact").performed += grab;
-
-        if (ObjNearPlayer != null)
-        {
-            closestObjDist = 10f;
+            transform.parent.GetChild(1).GetComponent<InputHandler>().horizontal = player.FindAction("Look");
+            forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
+            forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
             foreach (GameObject item in ObjNearPlayer)
             {
-                item.GetComponent<Interactable>().EnableInteract();
-                if (!isInteract)
+                if (item.CompareTag("Interactable"))
                 {
-                    if (Vector3.Distance(this.transform.position, item.transform.position) < closestObjDist)
+                    item.GetComponent<Interactable>().EnableInteract();
+                }
+            }
+            ObjNearPlayer.Clear();
+            RaycastHit[] hit;
+            hit = Physics.SphereCastAll(transform.position, radius, transform.forward, maxdist, layermask, QueryTriggerInteraction.UseGlobal);
+            foreach (RaycastHit item in hit)
+            {
+                if (item.transform.gameObject.CompareTag("Interactable"))
+                {
+                    ObjNearPlayer.Add(item.transform.gameObject);
+                }
+            }
+            player.FindAction("Interact").performed += grab;
+
+            if (ObjNearPlayer != null)
+            {
+                closestObjDist = 10f;
+                foreach (GameObject item in ObjNearPlayer)
+                {
+                    item.GetComponent<Interactable>().EnableInteract();
+                    if (!isInteract)
                     {
-                        currInteracted = item.gameObject;
-                        closestObjDist = Vector3.Distance(this.transform.position, item.transform.position);
+                        if (Vector3.Distance(this.transform.position, item.transform.position) < closestObjDist)
+                        {
+                            currInteracted = item.gameObject;
+                            closestObjDist = Vector3.Distance(this.transform.position, item.transform.position);
+                        }
                     }
                 }
             }
-        }
-        if (!isInteract)
-        {
-            if(ObjNearPlayer.Count < 1)
+            if (!isInteract)
             {
-                currInteracted = null;
+                if (ObjNearPlayer.Count < 1)
+                {
+                    currInteracted = null;
+                }
             }
+
+            rb.AddForce(forceDirection, ForceMode.Impulse);
+            forceDirection = Vector3.zero;
+
+            if (rb.velocity.y < 0f)
+                rb.velocity -= Vector3.down * Physics.gravity.y * Time.fixedDeltaTime;
+
+            Vector3 horizontalVelocity = rb.velocity;
+            horizontalVelocity.y = 0;
+            if (horizontalVelocity.sqrMagnitude > maxSpeed * maxSpeed)
+                rb.velocity = horizontalVelocity.normalized * maxSpeed + Vector3.up * rb.velocity.y;
+            LookAt();
         }
-        
-        rb.AddForce(forceDirection, ForceMode.Impulse);
-        forceDirection = Vector3.zero;
-
-        if (rb.velocity.y < 0f)
-            rb.velocity -= Vector3.down * Physics.gravity.y * Time.fixedDeltaTime;
-
-        Vector3 horizontalVelocity = rb.velocity;
-        horizontalVelocity.y = 0;
-        if (horizontalVelocity.sqrMagnitude > maxSpeed * maxSpeed)
-            rb.velocity = horizontalVelocity.normalized * maxSpeed + Vector3.up * rb.velocity.y;
-
-        LookAt();
-        
+       
     }
     private void grab(InputAction.CallbackContext context)
     {

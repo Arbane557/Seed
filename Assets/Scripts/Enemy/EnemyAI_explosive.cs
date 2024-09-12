@@ -25,6 +25,8 @@ public class EnemyAI_explosive : MonoBehaviour
   
     private Vector3 targetLoc;
     private Vector3 startSize;
+    [SerializeField]
+    private List<GameObject> ObjNear = new List<GameObject>();
     void Start()
     {
         startSize = transform.localScale;
@@ -34,17 +36,28 @@ public class EnemyAI_explosive : MonoBehaviour
 
     void FixedUpdate()
     {
-        targetLoc = new Vector3(x, 1, z);
-
+        ObjNear.Clear();
         RaycastHit[] hit;
-        hit = Physics.SphereCastAll(transform.position, 15f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
+        hit = Physics.SphereCastAll(transform.position, 10f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
         foreach (RaycastHit item in hit)
         {
             if (item.transform.gameObject.CompareTag("Player"))
             {
-                targetObj = item.transform.gameObject;
+                ObjNear.Add(item.transform.gameObject);
             }
-           
+            else { targetObj = null; }
+        }
+        if (ObjNear.Count > 0)
+        {
+            float closestObjDist = 10f;
+            foreach (GameObject item in ObjNear)
+            {
+                if (Vector3.Distance(this.transform.position, item.transform.position) < closestObjDist)
+                {
+                    targetObj = item.gameObject;
+                    closestObjDist = Vector3.Distance(this.transform.position, item.transform.position);
+                }
+            }
         }
 
         if (targetObj != null)

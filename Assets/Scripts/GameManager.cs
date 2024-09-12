@@ -7,16 +7,21 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI countDown;
+    [SerializeField]
     private float countdownTimer;
     public bool WaveStart;
     private int waveNum;
     [SerializeField]
     private int waveDuration;
+    [SerializeField]
+    private List<AudioClip> BGM = new List<AudioClip>();
+    [SerializeField]
+    private AudioSource audioSource;
+    public Animator animator;
     private void Start()
     {
         waveNum = 0;
         WaveStart = false;
-        countdownTimer = 10;
     }
     private void Update()
     {
@@ -24,7 +29,8 @@ public class GameManager : MonoBehaviour
         countDown.text = "Wave " + waveNum + ", " + Mathf.RoundToInt(countdownTimer) + " left";
         
         if(countdownTimer <0 )
-        {       
+        {      
+            StartCoroutine(changeBGM());    
             if (!WaveStart)
             {
                 waveNum++;
@@ -38,5 +44,12 @@ public class GameManager : MonoBehaviour
                 WaveStart = false;
             }
         }
+    }
+    IEnumerator changeBGM()
+    {
+        animator.SetTrigger("Fade");
+        yield return new WaitForSeconds(1f);
+        audioSource.clip = BGM[waveNum%2];
+
     }
 }
