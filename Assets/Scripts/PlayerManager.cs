@@ -71,8 +71,9 @@ public class PlayerManager : MonoBehaviour
                 {
                     GameObject player2 = playerObj[1];
                     player2.gameObject.name = "player2";
-
+                    
                     ThirdPersonController tpc2 = player2.GetComponentInChildren<ThirdPersonController>();
+                    tpc2.camTransform.tag = "CAM2";
                     tpc2.isPlayer2 = true;
                     tpc2.camTransform = player2.transform.GetChild(1);
                     player2.transform.GetChild(1).GetComponent<Camera>().cullingMask -= UILayers[0];
@@ -83,7 +84,7 @@ public class PlayerManager : MonoBehaviour
         }
         foreach (var player in playerObj)
         {
-            if (player.GetComponent<PlayerStats>().isDead == false) continue;
+            if (player.GetComponentInChildren<PlayerStats>().isDead == false) continue;
             else isGameOver = true;
         }
     }

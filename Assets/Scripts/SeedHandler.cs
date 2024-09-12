@@ -21,6 +21,8 @@ public class SeedHandler : MonoBehaviour
     [SerializeField]
     private GameObject popUpProgress;
     [SerializeField]
+    private GameObject popUpProgress2;
+    [SerializeField]
     private Transform camTransform1;
     [SerializeField]
     private Transform camTransform2;
@@ -28,11 +30,14 @@ public class SeedHandler : MonoBehaviour
     private Transform signPivot;
     [SerializeField]
     private Material readyMats;
-   
+    [SerializeField]
+    private GameObject UIPref;
+    private GameObject UI2;
     [SerializeField]
     private List<GameObject> sign = new List<GameObject>();
     [SerializeField]
     private List<Color> mats = new List<Color>();
+   
     private void Start()
     {
         setRandom();
@@ -46,14 +51,27 @@ public class SeedHandler : MonoBehaviour
         {
             sign[i].GetComponent<RawImage>().color = mats[setIngredient[i] - 1];
         }
+        UI2 = Instantiate(UIPref,transform.position,Quaternion.identity);
+        UI2.transform.SetParent(transform);
+        UI2.transform.position = UIPref.transform.position;
+        UI2.transform.localScale = UIPref.transform.localScale;
+        UI2.layer = 8;
+        popUpProgress2 = UI2.transform.GetChild(0).gameObject;
+        popUpProgress2.layer = 8;
     }
     private void Update()
     {
         isReady = isAllDone();
         if(GameObject.FindGameObjectWithTag("CAM") != null)
-        camTransform1 = GameObject.FindGameObjectWithTag("CAM").transform;
-        if (camTransform1 != null) { popUpProgress.transform.LookAt(camTransform1.position); signPivot.transform.rotation = popUpProgress.transform.rotation; } 
+            camTransform1 = GameObject.FindGameObjectWithTag("CAM").transform;
+        if (GameObject.FindGameObjectWithTag("CAM2") != null)
+            camTransform2 = GameObject.FindGameObjectWithTag("CAM2").transform;
+        if (camTransform1 != null) { signPivot.transform.LookAt(camTransform1.position); }
+        if (camTransform2 != null) { UI2.transform.LookAt(camTransform2.position); }
+
         popUpProgress.GetComponentInChildren<Slider>().value = progress / 10;
+        popUpProgress2.GetComponentInChildren<Slider>().value = progress / 10;
+
         if (!isReady)
         {
             if (!progressBool[progressCount])
@@ -65,6 +83,7 @@ public class SeedHandler : MonoBehaviour
                 else
                 {
                     popUpProgress.SetActive(false);
+                    popUpProgress2.SetActive(false);
                 }
             }
         }
@@ -104,6 +123,7 @@ public class SeedHandler : MonoBehaviour
     void charge(bool correctPos)
     {
         popUpProgress.SetActive(true);
+        popUpProgress2.SetActive(true);
         progress += 1 * Time.deltaTime;
         if(progress >= 10)
         {
@@ -112,9 +132,11 @@ public class SeedHandler : MonoBehaviour
                 isCharging = false;
                 progressBool[progressCount] = true;
                 sign[progressCount].GetComponent<RawImage>().color = Color.green;
+                UI2.transform.GetChild(1).transform.GetChild(progressCount).GetComponent<RawImage>().color = Color.green;
                 progressCount++;
                 progress = 0;
                 popUpProgress.SetActive(false);
+                popUpProgress2.SetActive(false);
                 isCharging = false;
             }
             //else
