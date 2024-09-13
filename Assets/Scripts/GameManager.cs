@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     [SerializeField]
     private Animator animator;
+    public bool isStarted;
     private void Start()
     {
         waveNum = 1;
@@ -27,19 +28,22 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        countdownTimer -= 1 * Time.deltaTime;
-        countDown.text = "Wave " + waveNum + ", " + Mathf.RoundToInt(countdownTimer) + " left";
-        
-        if(countdownTimer < 2 )
+        if (isStarted)
         {
-            StartCoroutine(changeBGM());
-            if (countdownTimer < 1)
-            {
-                waveNum++;
-                countdownTimer = waveDuration;
+            countdownTimer -= 1 * Time.deltaTime;
+            countDown.text = "Wave " + waveNum + ", " + Mathf.RoundToInt(countdownTimer) + " left";
 
-                if (!WaveStart) WaveStart = true;
-                else WaveStart = false;
+            if (countdownTimer < 2)
+            {
+                StartCoroutine(changeBGM());
+                if (countdownTimer < 1)
+                {
+                    waveNum++;
+                    countdownTimer = waveDuration;
+
+                    if (!WaveStart) WaveStart = true;
+                    else WaveStart = false;
+                }
             }
         }
     }

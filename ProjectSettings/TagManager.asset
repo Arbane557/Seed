@@ -23,6 +23,7 @@ TagManager:
   - P1
   - P2
   - music
+  - MC
   layers:
   - Default
   - TransparentFX

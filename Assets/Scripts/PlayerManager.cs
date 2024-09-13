@@ -12,6 +12,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private List<PlayerInput> players = new List<PlayerInput>();
     [SerializeField]
+    private List<Transform> playersSpawns = new List<Transform>();
+    [SerializeField]
     private List<GameObject> playerObj = new List<GameObject>();
     [SerializeField]
     private List<Transform> startingPoints;
@@ -42,7 +44,8 @@ public class PlayerManager : MonoBehaviour
         
         Transform playerParent = player.transform.parent;
         playerObj.Add(playerParent.gameObject);
-        
+        playerParent.gameObject.transform.position = playersSpawns[playerObj.Count - 1].position;
+
         int layerToAdd = (int)Mathf.Log(playerLayers[players.Count - 1].value, 2);
 
         playerParent.GetComponentInChildren<CinemachineFreeLook>().gameObject.layer = layerToAdd;
