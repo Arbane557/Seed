@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     private float x;
     private float z;
+    private float y;
     [SerializeField]
     private float spawnRate;
     private Vector3 spawnLoc;
@@ -15,13 +16,13 @@ public class EnemySpawner : MonoBehaviour
     private LayerMask layermask;
     private GameManager gameManager;
     private bool Spawning;
-    // Start is called before the first frame update
+    [SerializeField]
+    private List<Transform> enemySpawnPoints = new List<Transform>();
     void Start()
     {
         gameManager = this.gameObject.GetComponent<GameManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (gameManager.WaveStart)
@@ -38,9 +39,8 @@ public class EnemySpawner : MonoBehaviour
             Spawning = false;
         }
 
-        spawnLoc = new Vector3(x, 1, z);
+        spawnLoc = new Vector3(x, y, z);
     }
-
     public IEnumerator spawnEnemy()
     {
         while (true)
@@ -51,22 +51,21 @@ public class EnemySpawner : MonoBehaviour
             enemy.transform.position = spawnLoc;
             yield return new WaitForSeconds(spawnRate);
         }
-
     }
-
     public void randomSpawnLoc()
     {
-        x = Random.Range(transform.position.x - 17, transform.position.x + 17);
-        z = Random.Range(transform.position.z - 17, transform.position.z + 17);
-
-        RaycastHit[] hit;
-        hit = Physics.SphereCastAll(spawnLoc, 2f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
-        foreach (RaycastHit item in hit) 
-        {
-            if (item.transform.gameObject.CompareTag("Enemy"))
-            {
-                randomSpawnLoc();
-            }
-        }
+        int num =  Random.Range(0, enemySpawnPoints.Count);
+        x = Random.Range(enemySpawnPoints[num].transform.position.x, enemySpawnPoints[num].transform.position.x);
+        z = Random.Range(enemySpawnPoints[num].transform.position.z, enemySpawnPoints[num].transform.position.z);
+        y = Random.Range(enemySpawnPoints[num].transform.position.y, enemySpawnPoints[num].transform.position.y);
+        //RaycastHit[] hit;
+        //hit = Physics.SphereCastAll(spawnLoc, 2f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
+        //foreach (RaycastHit item in hit) 
+        //{
+        //    if (item.transform.gameObject.CompareTag("Enemy"))
+        //    {
+        //        randomSpawnLoc();
+        //    }
+        //}
     }
 }

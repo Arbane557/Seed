@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Animator animator;
     public bool isStarted;
+    [SerializeField]
     private void Start()
     {
         waveNum = 1;
