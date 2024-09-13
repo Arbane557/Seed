@@ -17,39 +17,35 @@ public class GameManager : MonoBehaviour
     private List<AudioClip> BGM = new List<AudioClip>();
     [SerializeField]
     private AudioSource audioSource;
-    public Animator animator;
+    private Animator animator;
     private void Start()
     {
+        animator = gameObject.GetComponent<Animator>(); 
         waveNum = 0;
         WaveStart = false;
+        countdownTimer = waveDuration;
+        changeBGM();
     }
     private void Update()
     {
         countdownTimer -= 1 * Time.deltaTime;
         countDown.text = "Wave " + waveNum + ", " + Mathf.RoundToInt(countdownTimer) + " left";
         
-        if(countdownTimer <0 )
-        {      
-            StartCoroutine(changeBGM());    
-            if (!WaveStart)
-            {
-                waveNum++;
-                countdownTimer = waveDuration;
-                WaveStart = true;
-            }
-            else
-            {
-                waveNum++;
-                countdownTimer = waveDuration;
-                WaveStart = false;
-            }
+        if(countdownTimer < 1 )
+        {
+            waveNum++;
+            changeBGM();
+            countdownTimer = waveDuration;
+            if (!WaveStart) WaveStart = true;     
+            else WaveStart = false;      
         }
     }
-    IEnumerator changeBGM()
+    private void changeBGM()
     {
-        animator.SetTrigger("Fade");
-        yield return new WaitForSeconds(1f);
-        audioSource.clip = BGM[waveNum%2];
-
+        animator.SetInteger("Fade",1);
+        Debug.Log("anjing");
+        //audioSource.clip = BGM[waveNum%2];
+        //audioSource.Play();
+        //animator.SetBool("Change", false);
     }
 }
