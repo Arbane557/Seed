@@ -76,6 +76,7 @@ public class LevelSelector : MonoBehaviour
     public void OpenWorld()
     {
         start = true;
-        
+        var bgm = GameObject.FindGameObjectWithTag("music");
+        bgm.GetComponent<AudioSource>().volume -= Time.deltaTime;
     }
 }

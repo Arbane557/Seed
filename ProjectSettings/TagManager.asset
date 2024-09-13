@@ -22,6 +22,7 @@ TagManager:
   - GameManager
   - P1
   - P2
+  - music
   layers:
   - Default
   - TransparentFX
