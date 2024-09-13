@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
     private void changeBGM()
     {
         animator.SetInteger("Fade",1);
-        Debug.Log("anjing");
         //audioSource.clip = BGM[waveNum%2];
         //audioSource.Play();
         //animator.SetBool("Change", false);
