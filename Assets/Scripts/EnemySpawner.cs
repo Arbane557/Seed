@@ -39,15 +39,14 @@ public class EnemySpawner : MonoBehaviour
             Spawning = false;
         }
 
-        spawnLoc = new Vector3(x, y, z);
     }
     public IEnumerator spawnEnemy()
     {
         while (true)
         {
-            //Debug.Log("Spawn");
-            GameObject enemy = Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Count)]);
             randomSpawnLoc();
+            //Debug.Log("Spawn");
+            GameObject enemy = Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Count)]);     
             enemy.transform.position = spawnLoc;
             yield return new WaitForSeconds(spawnRate);
         }
@@ -55,12 +54,10 @@ public class EnemySpawner : MonoBehaviour
     public void randomSpawnLoc()
     {
         int num =  Random.Range(0, enemySpawnPoints.Count);
-        x = enemySpawnPoints[num].transform.position.x;
-        z = enemySpawnPoints[num].transform.position.z;
-        y = enemySpawnPoints[num].transform.position.y;
-        Debug.Log(x);
-        Debug.Log(y);
-        Debug.Log(z);
+        spawnLoc = new Vector3(enemySpawnPoints[num].transform.position.x, 
+            enemySpawnPoints[num].transform.position.y, 
+            enemySpawnPoints[num].transform.position.z);
+
         //RaycastHit[] hit;
         //hit = Physics.SphereCastAll(spawnLoc, 2f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
         //foreach (RaycastHit item in hit) 

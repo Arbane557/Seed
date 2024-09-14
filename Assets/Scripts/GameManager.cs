@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     private Animator animator;
     public bool isStarted;
     [SerializeField]
+    private bool isSetting;
     private void Start()
     {
         waveNum = 1;
@@ -34,26 +35,27 @@ public class GameManager : MonoBehaviour
             countdownTimer -= 1 * Time.deltaTime;
             countDown.text = "Wave " + waveNum + ", " + Mathf.RoundToInt(countdownTimer) + " left";
 
-            if (countdownTimer < 2)
+            if (countdownTimer < 1)
             {
-                StartCoroutine(changeBGM());
-                if (countdownTimer < 1)
+                if (!isSetting)
                 {
                     waveNum++;
-                    countdownTimer = waveDuration;
-
-                    if (!WaveStart) WaveStart = true;
-                    else WaveStart = false;
+                    StartCoroutine(changeBGM());
                 }
             }
         }
     }
     IEnumerator changeBGM()
     {
+        isSetting = true;
         animator.SetInteger("Fade",1);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         audioSource.clip = BGM[waveNum%2];
         audioSource.Play();
         animator.SetInteger("Fade", 0);
+        countdownTimer = waveDuration;
+        if (!WaveStart) WaveStart = true;
+        else WaveStart = false;
+        isSetting = false;
     }
 }
