@@ -25,7 +25,9 @@ public class PotHandler : MonoBehaviour
     private GameObject potPrefab;
     private void Start()
     {
+        seeds.Clear();
         potPos = transform.position;
+        transform.GetChild(2).gameObject.SetActive(true);
     }
     private void Update()
     {

@@ -36,16 +36,15 @@ public class PlayerStats : MonoBehaviour
 
         if (TPC != null)
         {
-            if (TPC.isPlayer1) HealthUI = Instantiate(healthUI1, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), Quaternion.identity);
-            else if (TPC.isPlayer2) HealthUI = Instantiate(healthUI2, new Vector3(transform.position.x, transform.position.y + 2, transform.position.z), Quaternion.identity);
+            if (TPC.isPlayer1) HealthUI = Instantiate(healthUI1, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
+            else if (TPC.isPlayer2) HealthUI = Instantiate(healthUI2, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), Quaternion.identity);
         }
-        HealthUI.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
         countDown = HealthUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         countDown.gameObject.SetActive(false);
     }
     void Update()
     {
-        HealthUI.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+        HealthUI.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
         HealthUI.transform.LookAt(camTransform);
         sl = HealthUI.transform.GetChild(0).GetComponent<Slider>();
         sl.value = currHP / maxHP;

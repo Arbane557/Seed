@@ -24,7 +24,7 @@ public class BlazingBloom : MonoBehaviour
         while (true)
         {
             transform.localScale = transform.localScale * 2/3f;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
             RaycastHit[] hit;
             hit = Physics.SphereCastAll(transform.position, 6f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
             foreach (RaycastHit item in hit)
