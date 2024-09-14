@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float countdownTimer;
     public bool WaveStart;
+    [SerializeField]
     private int waveNum;
     [SerializeField]
     private int waveDuration;
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
     public bool isStarted;
     [SerializeField]
     private bool isSetting;
+    public bool isWin;
     private void Start()
     {
         waveNum = 1;
@@ -30,6 +33,20 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        if (waveNum == 15) { isWin = true; WaveStart = false; }
+        if(isWin == true)
+        {
+            GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+            foreach (var item in player)
+            {
+                Destroy(item.gameObject);
+            }
+            GameObject[] enemy = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (var item in player)
+            {
+                Destroy(item.gameObject);
+            }
+        }
         if (isStarted)
         {
             countdownTimer -= 1 * Time.deltaTime;

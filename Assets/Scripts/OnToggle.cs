@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,8 @@ public class OnToggle : MonoBehaviour
     private GameManager gm;
     [SerializeField]
     private GameObject title;
+    [SerializeField]
+    private Animator anim;
     // Start is called before the first frame update
     void Awake()
     {
@@ -22,6 +25,14 @@ public class OnToggle : MonoBehaviour
     }
     private void Update()
     {
+        if (gm.isWin)
+        {
+            mc.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(true); 
+            title.gameObject.SetActive(true);
+            title.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "The Tree Lives For Another Day...";
+            transform.Rotate(0, 15f * Time.deltaTime, 0);
+        }
         transform.Rotate(0, 15f * Time.deltaTime, 0);
     }
     private void OnEnable()
@@ -34,10 +45,11 @@ public class OnToggle : MonoBehaviour
     }
     private void ToggleThis(PlayerInput player)
     {
-        this.gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
         gm.isStarted = true;
-        Destroy(title.gameObject);
+        title.gameObject.SetActive(false);
+        Destroy(title.transform.GetChild(1).gameObject);
         mc.SetActive(true);
     }
-
+        
 }

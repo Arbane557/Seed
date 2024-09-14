@@ -632,6 +632,7 @@ MonoBehaviour:
   countDown: {fileID: 7971142719785588643}
   countdownTimer: 20
   WaveStart: 0
+  waveNum: 14
   waveDuration: 100
   BGM:
   - {fileID: 8300000, guid: fd0b42c3682f4cf41b6357e4e7925240, type: 3}
@@ -640,6 +641,7 @@ MonoBehaviour:
   animator: {fileID: 6867784249820927472}
   isStarted: 0
   isSetting: 0
+  isWin: 0
 --- !u!114 &4643276108967869858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1235,7 +1237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DirectionalLight: {fileID: 0}
   Preset: {fileID: 11400000, guid: 5b132528c097a0144bc337b5fbb827ef, type: 2}
-  TimeOfDay: 8.9
+  TimeOfDay: 15.621852
   isNight: 1
   buffedSpawnRate: 1
   isDay: 0
