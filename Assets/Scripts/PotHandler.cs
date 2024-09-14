@@ -47,6 +47,7 @@ public class PotHandler : MonoBehaviour
             {
                 InteractUI.SetActive(false);
                 holder.GetComponent<ThirdPersonController>().isInteract = true;
+                transform.GetChild(2).gameObject.SetActive(false);
                 IsCharging = false;
                 progress = 0;
                 isReady = true;
@@ -58,6 +59,7 @@ public class PotHandler : MonoBehaviour
                 plantSpawn.transform.position = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
                 plantSpawn.transform.SetParent(transform);
                 holder.GetComponent<ThirdPersonController>().isInteract = false;
+                seeds.Clear();
                 isReady = false;
                 progress = 0;
                 IsCharging = false;

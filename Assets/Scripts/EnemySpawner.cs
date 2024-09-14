@@ -55,9 +55,12 @@ public class EnemySpawner : MonoBehaviour
     public void randomSpawnLoc()
     {
         int num =  Random.Range(0, enemySpawnPoints.Count);
-        x = Random.Range(enemySpawnPoints[num].transform.position.x, enemySpawnPoints[num].transform.position.x);
-        z = Random.Range(enemySpawnPoints[num].transform.position.z, enemySpawnPoints[num].transform.position.z);
-        y = Random.Range(enemySpawnPoints[num].transform.position.y, enemySpawnPoints[num].transform.position.y);
+        x = enemySpawnPoints[num].transform.position.x;
+        z = enemySpawnPoints[num].transform.position.z;
+        y = enemySpawnPoints[num].transform.position.y;
+        Debug.Log(x);
+        Debug.Log(y);
+        Debug.Log(z);
         //RaycastHit[] hit;
         //hit = Physics.SphereCastAll(spawnLoc, 2f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
         //foreach (RaycastHit item in hit) 

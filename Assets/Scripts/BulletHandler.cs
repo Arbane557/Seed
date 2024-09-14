@@ -27,7 +27,7 @@ public class BulletHandler : MonoBehaviour
     {
         if (this.CompareTag("P1"))
         {
-            if (collision.transform.gameObject.CompareTag("Player"))
+            if (collision.transform.gameObject.CompareTag("Player") || collision.transform.gameObject.CompareTag("Main Tree"))
             {
                 collision.transform.gameObject.GetComponent<PlayerStats>().damage(damage);
                 Destroy(this.gameObject);
