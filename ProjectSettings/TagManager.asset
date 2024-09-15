@@ -24,6 +24,7 @@ TagManager:
   - P2
   - music
   - MC
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -34,7 +35,7 @@ TagManager:
   - P1
   - P2
   - UI2
-  - 
+  - Post Processing
   - 
   - 
   - 

@@ -37,7 +37,8 @@ public class SeedHandler : MonoBehaviour
     private List<GameObject> sign = new List<GameObject>();
     [SerializeField]
     private List<Color> mats = new List<Color>();
-   
+    [SerializeField]
+    private GameObject model;
     private void Start()
     {
         setRandom();
@@ -61,6 +62,7 @@ public class SeedHandler : MonoBehaviour
     }
     private void Update()
     {
+        model.transform.Rotate(30f * Time.deltaTime, 20f * Time.deltaTime, 30f * Time.deltaTime);
         isReady = isAllDone();
         if(GameObject.FindGameObjectWithTag("CAM") != null)
             camTransform1 = GameObject.FindGameObjectWithTag("CAM").transform;
