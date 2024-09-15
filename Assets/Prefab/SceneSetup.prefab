@@ -1316,6 +1316,7 @@ MonoBehaviour:
   MenuUI: {fileID: 8390726221541457375}
   isSetting: 0
   isWin: 0
+  isLost: 0
 --- !u!114 &4643276108967869858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1323,7 +1324,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191916526838883433}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 117846257a93d394881fce2d9b934bff, type: 3}
   m_Name: 

@@ -483,6 +483,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3749120706218127123, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4643276108967869858, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -498,6 +502,10 @@ PrefabInstance:
     - target: {fileID: 6983460499626344576, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
       propertyPath: m_Name
       value: SceneSetup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7649777916750411587, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8265239049985482768, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
       propertyPath: isDay
