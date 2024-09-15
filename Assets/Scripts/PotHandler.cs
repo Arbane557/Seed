@@ -56,7 +56,8 @@ public class PotHandler : MonoBehaviour
             }
             else
             {
-                Instantiate(potPrefab, potPos, Quaternion.identity);
+                var pot = Instantiate(potPrefab, potPos, Quaternion.identity);
+                pot.transform.Rotate(0, 180, 0);
                 GameObject plantSpawn = Instantiate(plantPrefab[seeds.Count - 1], transform.position, Quaternion.identity);
                 plantSpawn.transform.position = new Vector3(transform.position.x, transform.position.y+1f, transform.position.z);
                 plantSpawn.transform.SetParent(transform);

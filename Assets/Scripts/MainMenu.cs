@@ -44,7 +44,7 @@ public class MainMenu : MonoBehaviour
     }
     public void applicationQuit()
     {
-        applicationQuit();
+        Application.Quit();
     }
     public void openOption()
     {

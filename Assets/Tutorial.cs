@@ -17,7 +17,7 @@ public class Tutorial : MonoBehaviour
     {
         if(direction == true)
         {
-            if (i < 5)
+            if (i < 6)
             {
                 plants[i].SetActive(false);
                 i++;

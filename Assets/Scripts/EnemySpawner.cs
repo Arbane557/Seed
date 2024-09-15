@@ -48,6 +48,7 @@ public class EnemySpawner : MonoBehaviour
             //Debug.Log("Spawn");
             GameObject enemy = Instantiate(enemyPrefab[Random.Range(0,enemyPrefab.Count)]);     
             enemy.transform.position = spawnLoc;
+            enemy.transform.GetChild(0).transform.position = enemy.transform.position;
             yield return new WaitForSeconds(spawnRate);
         }
     }

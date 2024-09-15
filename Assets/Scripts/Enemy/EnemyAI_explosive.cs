@@ -31,7 +31,6 @@ public class EnemyAI_explosive : MonoBehaviour
     {
         startSize = transform.localScale;
         agent = gameObject.GetComponent<NavMeshAgent>();
-        randomSpawnLoc();
     }
 
     void FixedUpdate()
@@ -63,7 +62,6 @@ public class EnemyAI_explosive : MonoBehaviour
         if (targetObj != null)
         {
             transform.LookAt(targetObj.transform.position);
-            Vector3 targetDir = (targetObj.transform.position - transform.position).normalized;
             if (!inAttackRange)
             {
                 if (Vector3.Distance(transform.position, targetObj.transform.position) > 3f)

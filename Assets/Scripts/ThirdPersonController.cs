@@ -40,6 +40,8 @@ public class ThirdPersonController : MonoBehaviour
     private Vector3 forceDirection = Vector3.zero;
 
     [SerializeField]
+    private Animator anim;
+    [SerializeField]
     private Camera playerCamera;
     public Transform camTransform;
     [SerializeField]
@@ -74,6 +76,8 @@ public class ThirdPersonController : MonoBehaviour
         isDead = gameObject.GetComponent<PlayerStats>().isDead;
         if (!isDead)
         {
+            player.FindAction("Movement").performed += run;
+            player.FindAction("Movement").canceled += stop;
             transform.parent.GetChild(1).GetComponent<InputHandler>().horizontal = player.FindAction("Look");
             forceDirection += move.ReadValue<Vector2>().x * GetCameraRight(playerCamera) * movementForce;
             forceDirection += move.ReadValue<Vector2>().y * GetCameraForward(playerCamera) * movementForce;
@@ -148,6 +152,15 @@ public class ThirdPersonController : MonoBehaviour
             currInteracted.transform.SetParent(null);
             isInteract = false;
         }
+    }
+    private void run(InputAction.CallbackContext context)
+    {
+        anim.SetBool("Run", true);
+    }
+    private void stop(InputAction.CallbackContext context)
+    {
+        Debug.Log("stop");  
+        anim.SetBool("Run", false);
     }
     private void LookAt()
     {

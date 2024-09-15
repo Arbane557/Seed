@@ -24,10 +24,8 @@ public class EnemyAI_melee : MonoBehaviour
     private Vector3 targetLoc; [SerializeField]
     private List<GameObject> ObjNear = new List<GameObject>();
     void Start()
-    {
-        
+    {       
         agent = gameObject.GetComponent<NavMeshAgent>();
-        randomSpawnLoc();
     }
 
     void FixedUpdate()
@@ -59,7 +57,6 @@ public class EnemyAI_melee : MonoBehaviour
         if (targetObj != null)
         {
             transform.LookAt(targetObj.transform.position);
-            Vector3 targetDir = (targetObj.transform.position - transform.position).normalized;
             if (Vector3.Distance(transform.position, targetObj.transform.position) > 3f)
             {
                 StopAllCoroutines();
@@ -93,6 +90,7 @@ public class EnemyAI_melee : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(2f);
             Debug.Log("true");
             RaycastHit[] hit;
             hit = Physics.SphereCastAll(transform.position, 3f, transform.forward, 1, layermask, QueryTriggerInteraction.UseGlobal);
@@ -107,7 +105,6 @@ public class EnemyAI_melee : MonoBehaviour
                     }
                 }
             }
-            yield return new WaitForSeconds(2f);
             isAttack = false;
             Debug.Log("false");
         }

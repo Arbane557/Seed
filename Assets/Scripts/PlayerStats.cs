@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
        
-        HealthUI.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
+        HealthUI.transform.position = new Vector3(transform.position.x, transform.position.y + 2f, transform.position.z);
         HealthUI.transform.LookAt(camTransform);
         sl = HealthUI.transform.GetChild(0).GetComponent<Slider>();
         sl.value = currHP / maxHP;
