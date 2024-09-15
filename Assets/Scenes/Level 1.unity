@@ -502,7 +502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5732920157854698614, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
       propertyPath: waveDuration
-      value: 70
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6867882988034293703, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
       propertyPath: playersSpawns.Array.data[0]
