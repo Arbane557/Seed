@@ -33,6 +33,10 @@ public class OnToggle : MonoBehaviour
             title.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "The Tree Lives For Another Day...";
             transform.Rotate(0, 15f * Time.deltaTime, 0);
         }
+        if (gm.isLost)
+        {
+
+        }
         transform.Rotate(0, 15f * Time.deltaTime, 0);
     }
     private void OnEnable()

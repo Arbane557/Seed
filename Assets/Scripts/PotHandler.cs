@@ -58,14 +58,17 @@ public class PotHandler : MonoBehaviour
             {
                 Instantiate(potPrefab, potPos, Quaternion.identity);
                 GameObject plantSpawn = Instantiate(plantPrefab[seeds.Count - 1], transform.position, Quaternion.identity);
-                plantSpawn.transform.position = new Vector3(transform.position.x, transform.position.y+2, transform.position.z);
+                plantSpawn.transform.position = new Vector3(transform.position.x, transform.position.y+1f, transform.position.z);
                 plantSpawn.transform.SetParent(transform);
                 holder.GetComponent<ThirdPersonController>().isInteract = false;
+                Destroy(countUI.gameObject);
                 seeds.Clear();
                 isReady = false;
                 progress = 0;
                 IsCharging = false;
                 gameObject.tag = "Interactable";
+                Destroy(transform.GetChild(5).gameObject);
+                this.GetComponent<Rigidbody2D>().isKinematic = false;
             }
         }
         if (isReady)

@@ -10,6 +10,7 @@ public class EnemyAI_shooter : MonoBehaviour
     private GameObject targetObj;
     [SerializeField]
     private GameObject projectile;
+    [SerializeField]
     private Transform projectileSpawn;
     [SerializeField]
     private LayerMask layermask;
@@ -21,7 +22,6 @@ public class EnemyAI_shooter : MonoBehaviour
     private NavMeshAgent agent;
     void Start()
     {
-        projectileSpawn = transform.GetChild(1);
     }
     void Update()
     {
