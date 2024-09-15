@@ -5,7 +5,6 @@ using TMPro;
 using Unity.VisualScripting;
 using System;
 using UnityEngine.UI;
-using TreeEditor;
 
 public class PotHandler : MonoBehaviour
 {
@@ -23,6 +22,7 @@ public class PotHandler : MonoBehaviour
     private Vector3 potPos;
     [SerializeField]
     private GameObject potPrefab;
+    private bool isPlanted;
     private void Start()
     {
         seeds.Clear();
@@ -68,7 +68,8 @@ public class PotHandler : MonoBehaviour
                 IsCharging = false;
                 gameObject.tag = "Interactable";
                 Destroy(transform.GetChild(5).gameObject);
-                this.GetComponent<Rigidbody2D>().isKinematic = false;
+                this.GetComponent<Rigidbody>().isKinematic = false;
+                isPlanted = false;
             }
         }
         if (isReady)

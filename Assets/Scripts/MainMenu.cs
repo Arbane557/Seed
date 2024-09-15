@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine.EventSystems;
 
 public class MainMenu : MonoBehaviour
@@ -41,7 +40,7 @@ public class MainMenu : MonoBehaviour
     }
     public void startGameScene()
     {
-        SceneManager.LoadScene("Level Selector");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void applicationQuit()
     {
@@ -49,9 +48,7 @@ public class MainMenu : MonoBehaviour
     }
     public void openOption()
     {
-        optionMenu.SetActive(true);
-        mainMenu.SetActive(false);
-        optionBack.Select();
+        SceneManager.LoadScene(0);
     }
     public void closeOption()
     {

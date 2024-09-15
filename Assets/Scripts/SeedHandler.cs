@@ -71,8 +71,8 @@ public class SeedHandler : MonoBehaviour
         if (camTransform1 != null) { signPivot.transform.LookAt(camTransform1.position); }
         if (camTransform2 != null) { UI2.transform.LookAt(camTransform2.position); }
 
-        popUpProgress.GetComponentInChildren<Slider>().value = progress / 6;
-        popUpProgress2.GetComponentInChildren<Slider>().value = progress / 6;
+        popUpProgress.GetComponentInChildren<Slider>().value = progress / 4;
+        popUpProgress2.GetComponentInChildren<Slider>().value = progress / 4;
 
         if (!isReady)
         {
@@ -127,7 +127,7 @@ public class SeedHandler : MonoBehaviour
         popUpProgress.SetActive(true);
         popUpProgress2.SetActive(true);
         progress += 1 * Time.deltaTime;
-        if(progress >= 6)
+        if(progress >= 4)
         {
             if (correctPos)
             {

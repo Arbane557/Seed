@@ -6,22 +6,21 @@ public class Cacti : MonoBehaviour
 {
     [SerializeField]
     private GameObject projectile;
+    [SerializeField]    
     private Transform projectileSpawn;
     [SerializeField]
     private LayerMask layermask;
     [SerializeField]
     private List<GameObject> ObjNear = new List<GameObject>();
+    [SerializeField]
     private GameObject currTarget;
     private bool isShooting;
-    void Start()
-    {
-        projectileSpawn = transform.GetChild(0);
-    }
+  
     private void Update()
     {
         ObjNear.Clear();
         RaycastHit[] hit;
-        hit = Physics.SphereCastAll(transform.position, 10f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
+        hit = Physics.SphereCastAll(transform.position, 15f, transform.forward, 0, layermask, QueryTriggerInteraction.UseGlobal);
         foreach (RaycastHit item in hit)
         {
             if (item.transform.gameObject.CompareTag("Enemy"))
@@ -51,6 +50,12 @@ public class Cacti : MonoBehaviour
             if (!isShooting)
                 StartCoroutine(shoot());
         }
+        if(currTarget == null)
+        {
+            Debug.Log("null");
+            StopCoroutine(shoot());
+            isShooting = false;
+        }
     }
     IEnumerator shoot()
     {
@@ -59,7 +64,7 @@ public class Cacti : MonoBehaviour
             isShooting = true;
             yield return new WaitForSeconds(1.9f);
             GameObject bullet = Instantiate(projectile.gameObject, projectileSpawn.position, this.transform.rotation);
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 500);
+            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 700);
         }
     }
 }

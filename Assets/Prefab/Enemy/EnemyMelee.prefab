@@ -138,7 +138,7 @@ MonoBehaviour:
   movementForce: 1
   hasAttacked: 0
   targetObj: {fileID: 0}
-  agent: {fileID: 0}
+  agent: {fileID: 9079922215520406909}
   layermask:
     serializedVersion: 2
     m_Bits: 4294967295

@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using UnityEngine.InputSystem;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.XR;
-using static UnityEditor.Experimental.GraphView.GraphView;
+
 
 public class PlayerManager : MonoBehaviour
 {
