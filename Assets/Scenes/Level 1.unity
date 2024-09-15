@@ -473,7 +473,7 @@ Transform:
   m_GameObject: {fileID: 130764328}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30.6}
+  m_LocalPosition: {x: 0, y: 1.1, z: -30.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1059,7 +1059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5732920157854698614, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
       propertyPath: waveDuration
-      value: 70
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6867882988034293703, guid: 28da020c72e0b3b4ca8855c035a52cba, type: 3}
       propertyPath: playersSpawns.Array.data[0]
@@ -4219,7 +4219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1529783440949264819, guid: 31c7b4f0e51c17049bd7278632e28729, type: 3}
       propertyPath: seeds.Array.size
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1529783440949264819, guid: 31c7b4f0e51c17049bd7278632e28729, type: 3}
       propertyPath: seeds.Array.data[0]
