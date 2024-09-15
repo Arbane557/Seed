@@ -32,10 +32,10 @@ public class RadiantSunflower : MonoBehaviour
             {
                 if (item.transform.gameObject.CompareTag("Player")) healedPlayer.Add(item.transform.gameObject);
             }
-            foreach (var item in healedPlayer) { item.transform.gameObject.GetComponent<PlayerStats>().currHP += 10; }
+            foreach (var item in healedPlayer) { item.transform.gameObject.GetComponent<PlayerStats>().currHP += 15; }
             Instantiate(explosionEffect, transform.position, Quaternion.identity);
             transform.localScale = transform.localScale * 1.5f;
-            yield return new WaitForSeconds(8f);
+            yield return new WaitForSeconds(7f);
            
         }
     }
