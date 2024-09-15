@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
     }
     public void returnMenu()
     {
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
+        SceneManager.LoadScene(0);
     }
 
 }

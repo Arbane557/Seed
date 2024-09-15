@@ -57,12 +57,12 @@ public class OnToggle : MonoBehaviour
     }
     public void playStart()
     {
+        Time.timeScale = 1;
         UItutorial.gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
         gm.isStarted = true;
         Destroy(title.transform.GetChild(1).gameObject);
         mc.SetActive(true);
-        Time.timeScale = 1;
     }
 
 }
