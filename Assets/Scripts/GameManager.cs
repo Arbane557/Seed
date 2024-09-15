@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool isSetting;
     public bool isWin;
+    public bool isLost;
     private bool isPaused;
    
     private void Start()

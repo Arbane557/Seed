@@ -27,8 +27,10 @@ public class PlayerStats : MonoBehaviour
     private TextMeshProUGUI countDown;
     private List<LayerMask> UILayers;
     private float respawnTime = 10;
+    private GameManager gm;
     void Start()
     {
+        gm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         TPC = gameObject.GetComponent<ThirdPersonController>();
         if(TPC != null )
         camTransform = TPC.camTransform;
@@ -44,15 +46,23 @@ public class PlayerStats : MonoBehaviour
     }
     void Update()
     {
+       
         HealthUI.transform.position = new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z);
         HealthUI.transform.LookAt(camTransform);
         sl = HealthUI.transform.GetChild(0).GetComponent<Slider>();
         sl.value = currHP / maxHP;
+
         if (currHP <= 0)
         {
-            if (TPC != null)
-                isDead = true;
-            else isGameOver = true;
+            if (this.CompareTag("Main Tree"))
+            {
+                gm.isLost = true;
+            }
+            else
+            {
+                if (TPC != null) isDead = true;
+                else isGameOver = true;
+            }
         }
         if(TPC != null)
         TPC.isDead = isDead;
