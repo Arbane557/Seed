@@ -16,6 +16,8 @@ public class OnToggle : MonoBehaviour
     private GameObject title;
     [SerializeField]
     private Animator anim;
+    [SerializeField]
+    private GameObject UItutorial;
     // Start is called before the first frame update
     void Awake()
     {
@@ -49,11 +51,18 @@ public class OnToggle : MonoBehaviour
     }
     private void ToggleThis(PlayerInput player)
     {
+        UItutorial.SetActive(true);
+        title.gameObject.SetActive(false);
+        Time.timeScale = 0;
+    }
+    public void playStart()
+    {
+        UItutorial.gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
         gm.isStarted = true;
-        title.gameObject.SetActive(false);
         Destroy(title.transform.GetChild(1).gameObject);
         mc.SetActive(true);
+        Time.timeScale = 1;
     }
-        
+
 }
