@@ -48,12 +48,13 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField]
     private GameObject currInteracted;
     public GameObject dropZone;
-   
+    private GameManager gameManager;
     private void Awake()
     {       
         rb = this.GetComponent<Rigidbody>();
         inputAsset = this.GetComponent<PlayerInput>().actions;
         player = inputAsset.FindActionMap("Player");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
     private void OnEnable()
@@ -95,7 +96,7 @@ public class ThirdPersonController : MonoBehaviour
                 }
             }
             player.FindAction("Interact").performed += grab;
-
+            player.FindAction("Menu").performed += gameManager.pause;
             if (ObjNearPlayer != null)
             {
                 closestObjDist = 10f;

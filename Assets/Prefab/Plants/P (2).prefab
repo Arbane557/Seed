@@ -121,5 +121,5 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 4294967295
-  explosionEffect: {fileID: 2973664635677197389, guid: 1ac8dc6513087cc43999702eeb0373c2, type: 3}
+  explosionEffect: {fileID: 5112403345868107898, guid: 6f34ef0d986e9db4199cf75805f79753, type: 3}
   slowedEnemy: []

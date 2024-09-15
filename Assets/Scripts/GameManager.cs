@@ -4,8 +4,11 @@ using UnityEngine;
 using TMPro;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
+    
     [SerializeField]
     private TextMeshProUGUI countDown;
     [SerializeField]
@@ -23,8 +26,12 @@ public class GameManager : MonoBehaviour
     private Animator animator;
     public bool isStarted;
     [SerializeField]
+    private GameObject MenuUI;
+    [SerializeField]
     private bool isSetting;
     public bool isWin;
+    private bool isPaused;
+   
     private void Start()
     {
         waveNum = 1;
@@ -33,6 +40,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+
         if (waveNum == 15) { isWin = true; WaveStart = false; }
         if(isWin == true)
         {
@@ -75,4 +83,23 @@ public class GameManager : MonoBehaviour
         else WaveStart = false;
         isSetting = false;
     }
+    public void pause(InputAction.CallbackContext context)
+    {
+        if(!isPaused)
+        {
+            Time.timeScale = 0;
+            MenuUI.SetActive(true);
+            isPaused = true;
+        }else
+        {
+            Time.timeScale = 1;
+            MenuUI.SetActive(false);
+            isPaused = false;
+        }
+    }
+    public void returnMenu()
+    {
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(0));
+    }
+
 }
