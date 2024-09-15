@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         if (isStarted)
         {
             countdownTimer -= 1 * Time.deltaTime;
-            countDown.text = "Wave " + waveNum + "   " + Mathf.RoundToInt(countdownTimer) + " left";
+            countDown.text = "Wave " + waveNum + "       " + Mathf.RoundToInt(countdownTimer) + " left";
 
             if (countdownTimer < 1)
             {
